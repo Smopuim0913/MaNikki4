@@ -3,26 +3,55 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790105201763,
+            "lastSyncTime": 1790698136036,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\登陆游戏.json",
             "savedViewport": {
-                "x": -3045,
-                "y": 43,
-                "zoom": 0.69
+                "x": -4448,
+                "y": 85,
+                "zoom": 1
             },
             "filename": "登陆游戏",
-            "version": "v1.10.1"
+            "version": "v2.0.4"
+        }
+    },
+    "登陆_更新按钮": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchRowButton",
+                "custom_recognition_param": {
+                    "button": "确定",
+                    "keyword": "更新",
+                    "y_tolerance": 200
+                },
+                "roi": [
+                    40,
+                    250,
+                    640,
+                    700
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1200,
+        "$__mpe_code": {
+            "position": {
+                "x": 5408,
+                "y": 479
+            }
         }
     },
     "登陆_中继": {
         "next": [
             "[JumpBack]登陆_关闭公告",
             "登陆_打开个人简介",
+            "[JumpBack]登陆_更新按钮",
             "[JumpBack]登陆_返回",
-            "[JumpBack]登陆_点击空白",
-            "[JumpBack]制衣_材料_商店_副本1"
+            "[JumpBack]登陆_点击空白"
         ],
         "$__mpe_code": {
             "position": {
@@ -199,35 +228,6 @@
             "position": {
                 "x": 4486,
                 "y": 316
-            }
-        }
-    },
-    "制衣_材料_商店_副本1": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchRowButton",
-                "custom_recognition_param": {
-                    "button": "确定",
-                    "keyword": "更新",
-                    "y_tolerance": 200
-                },
-                "roi": [
-                    40,
-                    250,
-                    640,
-                    700
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 1200,
-        "$__mpe_code": {
-            "position": {
-                "x": 5408,
-                "y": 479
             }
         }
     }
