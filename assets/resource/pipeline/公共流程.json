@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1788952103247,
+            "lastSyncTime": 1790699250074,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\公共流程.json",
             "savedViewport": {
-                "x": -4839,
-                "y": 53,
-                "zoom": 0.8
+                "x": -8073,
+                "y": -401,
+                "zoom": 1.17
             },
             "filename": "公共流程",
-            "version": "v1.9.3"
+            "version": "v2.0.4"
         }
     },
     "主菜单_中继节点": {
@@ -91,18 +91,46 @@
             }
         }
     },
+    "主菜单_点击取消": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    99,
+                    664,
+                    242,
+                    85
+                ],
+                "expected": [
+                    "取消"
+                ]
+            }
+        },
+        "next": [
+            "主菜单_中继节点"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7347,
+                "y": -36
+            }
+        }
+    },
     "主菜单_确认个人简介": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [
-                    520,
-                    914,
-                    102,
-                    41
+                    17,
+                    747,
+                    668,
+                    530
                 ],
                 "expected": [
-                    "收集度"
+                    "设置",
+                    "收集度",
+                    "所属联盟",
+                    "主界面"
                 ]
             }
         },
@@ -178,33 +206,18 @@
             }
         }
     },
-    "主菜单_点击取消": {
-        "recognition": {
-            "type": "OCR",
+    "退出模拟器": {
+        "action": {
+            "type": "Custom",
             "param": {
-                "roi": [
-                    99,
-                    664,
-                    242,
-                    85
-                ],
-                "expected": [
-                    "取消"
-                ]
+                "custom_action": "ShutdownEmulator"
             }
         },
-        "next": [
-            "主菜单_中继节点"
-        ],
         "$__mpe_code": {
             "position": {
-                "x": 7347,
-                "y": -36
+                "x": 0,
+                "y": 0
             }
         }
-    },
-    "退出模拟器": {
-        "action": "Custom",
-        "custom_action": "ShutdownEmulator"
     }
 }
