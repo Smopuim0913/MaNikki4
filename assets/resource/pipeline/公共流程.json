@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790699250074,
+            "lastSyncTime": 1790699822459,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\公共流程.json",
             "savedViewport": {
-                "x": -8073,
-                "y": -401,
-                "zoom": 1.17
+                "x": -6174,
+                "y": -52,
+                "zoom": 0.91
             },
             "filename": "公共流程",
             "version": "v2.0.4"
@@ -121,10 +121,10 @@
             "type": "OCR",
             "param": {
                 "roi": [
-                    17,
-                    747,
-                    668,
-                    530
+                    23,
+                    560,
+                    646,
+                    705
                 ],
                 "expected": [
                     "设置",
