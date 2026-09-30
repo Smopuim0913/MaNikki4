@@ -125,6 +125,13 @@
             "default_check": true
         },
         {
+            "name": "评选赛",
+            "label": "🏆 搭配评选赛",
+            "entry": "评选赛_开始",
+            "description": "进入搭配评选赛，自动当评委完成每日点赞投票",
+            "default_check": true
+        },
+        {
             "name": "时空回廊",
             "label": "👗 时空回廊",
             "entry": "制衣_开始",
@@ -350,6 +357,10 @@
                 },
                 {
                     "name": "分享",
+                    "enabled": true
+                },
+                {
+                    "name": "评选赛",
                     "enabled": true
                 },
                 {
