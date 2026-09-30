@@ -3,25 +3,84 @@
         "$__mpe_code": {
             "prefix": "",
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\评选赛.json",
-            "lastSyncTime": 1790771837580,
+            "lastSyncTime": 1790775031838,
+            "isModifiedExternally": false,
             "coordinateMode": "absolute-v1",
+            "isDeleted": false,
             "savedViewport": {
-                "x": -6418,
-                "y": -241,
-                "zoom": 1.03
+                "x": -4999,
+                "y": -527,
+                "zoom": 1.17
             },
             "filename": "评选赛",
             "version": "v2.0.4"
         }
     },
+    "$__mpe_external_公共：返回主菜单_评选赛": {
+        "$__mpe_code": {
+            "position": {
+                "x": 6924,
+                "y": 263
+            },
+            "extra_positions": [
+                {
+                    "x": 4998,
+                    "y": 892
+                }
+            ]
+        }
+    },
+    "评选赛_中继": {
+        "next": [
+            "评选赛_次数不足",
+            "评选赛_进入评选"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5744,
+                "y": 571
+            }
+        }
+    },
     "评选赛_开始": {
         "next": [
-            "评选赛_确认在主菜单"
+            "评选赛_确认在主菜单",
+            "[JumpBack]评选赛_自愈"
         ],
         "$__mpe_code": {
             "position": {
                 "x": 4349,
                 "y": 548
+            }
+        }
+    },
+    "评选赛_次数不足": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    477,
+                    1126,
+                    233,
+                    147
+                ],
+                "expected": [
+                    "剩余推送次数：0次",
+                    "(^|\\\\D)0次"
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "评选赛次数不足"
+        },
+        "next": [
+            "评选赛_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6169,
+                "y": 268
             }
         }
     },
@@ -54,6 +113,35 @@
             }
         }
     },
+    "评选赛_点赞": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    84,
+                    1028,
+                    189,
+                    159
+                ],
+                "expected": [
+                    "赞"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "开始评选"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 6919,
+                "y": 667
+            }
+        }
+    },
     "评选赛_确认在主菜单": {
         "recognition": {
             "type": "OCR",
@@ -79,44 +167,56 @@
             }
         }
     },
-    "评选赛_进入评选赛": {
+    "评选赛_确认已在评选界面": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [
-                    6,
-                    550,
-                    197,
-                    99
+                    237,
+                    13,
+                    229,
+                    61
                 ],
                 "expected": [
-                    "搭配评选赛"
+                    "本期搭配主题"
                 ]
             }
         },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
         "next": [
-            "评选赛_中继"
+            "评选赛_次数不足",
+            "[JumpBack]评选赛_点赞"
         ],
         "$__mpe_code": {
             "position": {
-                "x": 5333,
-                "y": 524
+                "x": 6531,
+                "y": 633
             }
         }
     },
-    "评选赛_中继": {
+    "评选赛_结束": {
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "评选赛次数不足"
+        },
         "next": [
-            "评选赛_次数不足",
-            "评选赛_进入评选"
+            "公共：返回主菜单"
         ],
         "$__mpe_code": {
             "position": {
-                "x": 5744,
-                "y": 571
+                "x": 6531,
+                "y": 265
+            }
+        }
+    },
+    "评选赛_自愈": {
+        "max_hit": 1,
+        "next": [
+            "公共：返回主菜单"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4673,
+                "y": 860
             }
         }
     },
@@ -152,82 +252,18 @@
             }
         }
     },
-    "评选赛_次数不足": {
+    "评选赛_进入评选赛": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [
-                    477,
-                    1126,
-                    233,
-                    147
+                    6,
+                    550,
+                    197,
+                    99
                 ],
                 "expected": [
-                    "剩余推送次数：0次",
-                    "(^|\\\\D)0次"
-                ]
-            }
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "评选赛次数不足"
-        },
-        "next": [
-            "评选赛_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6169,
-                "y": 268
-            }
-        }
-    },
-    "$__mpe_external_公共：返回主菜单_评选赛": {
-        "$__mpe_code": {
-            "position": {
-                "x": 6924,
-                "y": 263
-            }
-        }
-    },
-    "评选赛_确认已在评选界面": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    237,
-                    13,
-                    229,
-                    61
-                ],
-                "expected": [
-                    "本期搭配主题"
-                ]
-            }
-        },
-        "next": [
-            "评选赛_次数不足",
-            "[JumpBack]评选赛_点赞"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6531,
-                "y": 633
-            }
-        }
-    },
-    "评选赛_点赞": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    84,
-                    1028,
-                    189,
-                    159
-                ],
-                "expected": [
-                    "赞"
+                    "搭配评选赛"
                 ]
             }
         },
@@ -235,28 +271,13 @@
             "type": "Click"
         },
         "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "开始评选"
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 6919,
-                "y": 667
-            }
-        }
-    },
-    "评选赛_结束": {
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "评选赛次数不足"
-        },
         "next": [
-            "公共：返回主菜单"
+            "评选赛_中继"
         ],
         "$__mpe_code": {
             "position": {
-                "x": 6531,
-                "y": 265
+                "x": 5333,
+                "y": 524
             }
         }
     }

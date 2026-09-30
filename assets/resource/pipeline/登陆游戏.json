@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790769639164,
+            "lastSyncTime": 1790776531911,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\登陆游戏.json",
             "savedViewport": {
-                "x": -8105,
-                "y": -58,
-                "zoom": 1.5
+                "x": -3278,
+                "y": 27,
+                "zoom": 0.75
             },
             "filename": "登陆游戏",
             "version": "v2.0.4"

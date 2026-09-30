@@ -3,25 +3,31 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790113984054,
+            "lastSyncTime": 1790776522852,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\忆海心阶.json",
             "savedViewport": {
-                "x": -4926,
-                "y": -17,
-                "zoom": 0.62
+                "x": -1678,
+                "y": 43,
+                "zoom": 0.45
             },
             "filename": "忆海心阶",
-            "version": "v1.10.1"
+            "version": "v2.0.4"
         }
     },
     "$__mpe_external_公共：返回主菜单_忆海心阶": {
         "$__mpe_code": {
             "position": {
-                "x": 8665,
-                "y": 1317
-            }
+                "x": 5481,
+                "y": 631
+            },
+            "extra_positions": [
+                {
+                    "x": 8665,
+                    "y": 1317
+                }
+            ]
         }
     },
     "忆海_一键穿戴印象": {
@@ -55,7 +61,8 @@
     },
     "忆海_开始": {
         "next": [
-            "忆海_确认在主菜单"
+            "忆海_确认在主菜单",
+            "[JumpBack]忆海_自愈"
         ],
         "$__mpe_code": {
             "position": {
@@ -635,6 +642,18 @@
             "position": {
                 "x": 8216,
                 "y": 1275
+            }
+        }
+    },
+    "忆海_自愈": {
+        "max_hit": 1,
+        "next": [
+            "公共：返回主菜单"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5132,
+                "y": 631
             }
         }
     },
