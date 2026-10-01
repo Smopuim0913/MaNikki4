@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790848588427,
+            "lastSyncTime": 1790851109883,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\组队本.json",
             "savedViewport": {
-                "x": -4641,
-                "y": -114,
-                "zoom": 0.88
+                "x": -4274,
+                "y": -1346,
+                "zoom": 0.7
             },
             "filename": "组队本",
             "version": "v2.0.5"
@@ -24,8 +24,8 @@
             },
             "extra_positions": [
                 {
-                    "x": 7213,
-                    "y": 291
+                    "x": 7700,
+                    "y": 263
                 }
             ]
         }
@@ -143,6 +143,7 @@
         },
         "post_wait_freezes": 200,
         "next": [
+            "组队本_体力不足取消",
             "不落的帷幕_返回"
         ],
         "$__mpe_code": {
@@ -351,6 +352,7 @@
         },
         "post_wait_freezes": 200,
         "next": [
+            "组队本_体力不足取消",
             "印象航旅_返回"
         ],
         "$__mpe_code": {
@@ -521,6 +523,7 @@
         },
         "post_wait_freezes": 500,
         "next": [
+            "组队本_体力不足取消",
             "时光钟表铺_返回"
         ],
         "$__mpe_code": {
@@ -673,6 +676,7 @@
         }
     },
     "结伴_不落的帷幕次数": {
+        "max_hit": 1,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -732,6 +736,7 @@
         }
     },
     "结伴_印象航旅次数": {
+        "max_hit": 1,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -803,6 +808,7 @@
         }
     },
     "结伴_时光钟表铺次数": {
+        "max_hit": 1,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -852,7 +858,7 @@
         },
         "post_wait_freezes": 500,
         "next": [
-            "结伴_点击结伴_副本1",
+            "结伴_点击结伴",
             "结伴_点击主菜单"
         ],
         "$__mpe_code": {
@@ -862,7 +868,7 @@
             }
         }
     },
-    "结伴_点击结伴_副本1": {
+    "结伴_点击结伴": {
         "recognition": {
             "type": "OCR",
             "param": {
@@ -922,8 +928,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 6857,
-                "y": 217
+                "x": 7296,
+                "y": 261
             }
         }
     },
@@ -966,6 +972,41 @@
             "position": {
                 "x": 6217,
                 "y": 233
+            }
+        }
+    },
+    "组队本_体力不足取消": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchRowButton",
+                "custom_recognition_param": {
+                    "button": "取消",
+                    "keyword": "体力",
+                    "y_tolerance": 400
+                },
+                "roi": [
+                    47,
+                    225,
+                    644,
+                    539
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1000,
+        "focus": {
+            "Node.Action.Succeeded": "组队本体力不足结束任务"
+        },
+        "next": [
+            "结伴_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7221,
+                "y": 630
             }
         }
     }
