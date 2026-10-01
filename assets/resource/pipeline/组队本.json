@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776548915,
+            "lastSyncTime": 1790848588427,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\组队本.json",
             "savedViewport": {
-                "x": -2659,
-                "y": -3,
-                "zoom": 0.66
+                "x": -4641,
+                "y": -114,
+                "zoom": 0.88
             },
             "filename": "组队本",
-            "version": "v2.0.4"
+            "version": "v2.0.5"
         }
     },
     "$__mpe_external_公共：返回主菜单_组队本": {
@@ -683,7 +683,7 @@
                     53
                 ],
                 "expected": [
-                    "0/9"
+                    "0/"
                 ]
             }
         },
@@ -742,7 +742,7 @@
                     62
                 ],
                 "expected": [
-                    "0/9"
+                    "0/"
                 ]
             }
         },
@@ -813,7 +813,7 @@
                     43
                 ],
                 "expected": [
-                    "0/9"
+                    "0/"
                 ]
             }
         },
