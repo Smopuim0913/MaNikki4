@@ -3,21 +3,57 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776531911,
+            "lastSyncTime": 1790850435901,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\登陆游戏.json",
             "savedViewport": {
-                "x": -3278,
-                "y": 27,
-                "zoom": 0.75
+                "x": -3660,
+                "y": 499,
+                "zoom": 0.78
             },
             "filename": "登陆游戏",
-            "version": "v2.0.4"
+            "version": "v2.0.5"
+        }
+    },
+    "登陆_关闭红包页面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    557,
+                    1017,
+                    145,
+                    36
+                ],
+                "expected": [
+                    "今日不再提示"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "repeat": 2,
+        "repeat_delay": 200,
+        "$__mpe_code": {
+            "position": {
+                "x": 5720,
+                "y": -454
+            }
         }
     },
     "登陆_中继": {
         "next": [
+            "[JumpBack]登陆_领取红包",
             "[JumpBack]登陆_关闭公告",
             "登陆_打开个人简介",
             "[JumpBack]登陆_更新按钮",
@@ -59,8 +95,8 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 5410,
-                "y": -131
+                "x": 5413,
+                "y": -122
             }
         }
     },
@@ -144,8 +180,8 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 5414,
-                "y": 1195
+                "x": 5407,
+                "y": 1092
             }
         }
     },
@@ -217,8 +253,8 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 5416,
-                "y": 890
+                "x": 5409,
+                "y": 787
             }
         }
     },
@@ -231,6 +267,35 @@
             "position": {
                 "x": 4486,
                 "y": 316
+            }
+        }
+    },
+    "登陆_领取红包": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    11,
+                    444,
+                    197,
+                    674
+                ],
+                "template": [
+                    "红包.png"
+                ]
+            }
+        },
+        "pre_wait_freezes": 200,
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "登陆_关闭红包页面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5413,
+                "y": -464
             }
         }
     }
