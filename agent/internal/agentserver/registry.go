@@ -1,6 +1,7 @@
 package agentserver
 
 import (
+	"encoding/json"
 	"fmt"
 
 	maa "github.com/MaaXYZ/maa-framework-go/v4"
@@ -88,7 +89,16 @@ func BuildRegistry(projectRoot string) (*Registry, error) {
 	// 注册退出模拟器自定义动作
 	shutdownRunner := maa.CustomActionFunc(func(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 		fmt.Println("[Agent] 收到退出模拟器指令，正在安全关闭...")
-		if err := emulator.ShutdownEmulator(projectRoot); err != nil {
+		closeLauncher := true
+		if arg != nil && len(arg.CustomActionParam) > 0 {
+			var param struct {
+				CloseLauncher *bool `json:"close_launcher"`
+			}
+			if err := json.Unmarshal([]byte(arg.CustomActionParam), &param); err == nil && param.CloseLauncher != nil {
+				closeLauncher = *param.CloseLauncher
+			}
+		}
+		if err := emulator.ShutdownEmulator(projectRoot, closeLauncher); err != nil {
 			fmt.Printf("[Agent] 关闭模拟器失败: %v\n", err)
 			return false
 		}

@@ -493,8 +493,14 @@ func savePathToConfig(projectRoot, mumuPath string) error {
 	return os.WriteFile(targetPath, newBytes, 0o644)
 }
 
-// ShutdownEmulator 安全优雅地关闭 MuMu 模拟器实例。在未找到模拟器时静默退出，严禁呼出弹窗。
-func ShutdownEmulator(projectRoot string) error {
+// ShutdownEmulator 安全优雅地关闭 MuMu 模拟器实例，防止残留唤醒且绝不误伤其他多开实例。
+// closeLauncherOpt 控制是否在模拟器实例安全退出后直接结束 MuMu 启动器主面板（默认开启 true）。
+func ShutdownEmulator(projectRoot string, closeLauncherOpt ...bool) error {
+	closeLauncher := true
+	if len(closeLauncherOpt) > 0 {
+		closeLauncher = closeLauncherOpt[0]
+	}
+
 	cfgADBAddress, cfgADBPath, cfgMuMuPath, vmIndex := loadConfig(projectRoot)
 	adbAddress := defaultADBAddress
 	if cfgADBAddress != "" {
@@ -510,25 +516,158 @@ func ShutdownEmulator(projectRoot string) error {
 		return nil
 	}
 
-	// 1. 首选：使用 mumu-cli control -v <vmIndex> shutdown 优雅安全关机
-	if cliExe := findMuMuCli(mumuPath); cliExe != "" {
-		fmt.Printf("[Emulator] 正在使用 mumu-cli 安全关闭模拟器 (实例: %d)...\n", vmIndex)
-		cmd := exec.Command(cliExe, "control", "-v", fmt.Sprintf("%d", vmIndex), "shutdown")
-		cmd.Dir = filepath.Dir(cliExe)
-		if err := cmd.Run(); err == nil {
-			fmt.Println("[Emulator] 模拟器已成功安全关闭")
-			return nil
+	cliExe := findMuMuCli(mumuPath)
+	adbExe := resolveADBPath("", mumuPath, cfgADBPath)
+
+	// 1. 获取目标实例初始状态与专属 PID (供定向关机与超时兜底，防止误伤多开)
+	var initialInfo mumuVMInfo
+	if cliExe != "" {
+		info, err := queryVMInfo(cliExe, vmIndex)
+		if err == nil {
+			initialInfo = info
+			if !initialInfo.IsProcessStarted {
+				fmt.Printf("[Emulator] 实例 %d 当前未在运行，无需关机\n", vmIndex)
+				if adbExe != "" {
+					_ = exec.Command(adbExe, "disconnect", adbAddress).Run()
+				}
+				return nil
+			}
 		}
 	}
 
-	// 2. 次选：通过 ADB shell reboot -p 关闭虚拟机系统
-	adbExe := resolveADBPath("", mumuPath, cfgADBPath)
-	if adbExe != "" {
-		fmt.Println("[Emulator] 尝试通过 ADB 发送关机指令...")
+	// 2. 发送安全关机指令，确保安卓虚拟机数据正常落盘
+	if cliExe != "" {
+		fmt.Printf("[Emulator] 正在使用 mumu-cli 发送关机指令 (实例: %d)...\n", vmIndex)
+		cmd := exec.Command(cliExe, "control", "-v", fmt.Sprintf("%d", vmIndex), "shutdown")
+		cmd.Dir = filepath.Dir(cliExe)
+		_ = cmd.Run()
+	} else if adbExe != "" {
+		// 降级方案：若未找到 mumu-cli，尝试通过 ADB 发送软关机指令通知安卓系统落盘
+		fmt.Println("[Emulator] 未检测到 mumu-cli，尝试通过 ADB 发送软关机指令...")
 		_ = exec.Command(adbExe, "-s", adbAddress, "shell", "reboot", "-p").Run()
 	}
 
+	// 3. 切断 ADB 连接，杜绝守护机制因端口探测轮询而再次唤醒模拟器
+	if adbExe != "" {
+		_ = exec.Command(adbExe, "disconnect", adbAddress).Run()
+	}
+
+	// 4. 定向等待该实例退出（最长 15 秒，通过 CLI info 轮询，保障 Android 充分落盘且不派生 tasklist 外部进程）
+	vmTerminated := false
+	lastInfo := initialInfo
+	if cliExe != "" {
+		deadline := time.Now().Add(15 * time.Second)
+		for time.Now().Before(deadline) {
+			time.Sleep(500 * time.Millisecond)
+			if info, err := queryVMInfo(cliExe, vmIndex); err == nil {
+				lastInfo = info
+				if !info.IsProcessStarted {
+					vmTerminated = true
+					break
+				}
+			}
+		}
+	} else {
+		// 无 CLI 场景退化：留出 3 秒基础落盘缓冲后退出
+		time.Sleep(3 * time.Second)
+	}
+
+	// 5. 若目标实例超时未退出，仅针对该实例专属 PID 定向强杀，绝不误伤多开
+	if !vmTerminated && cliExe != "" {
+		fmt.Printf("[Emulator] 实例 %d 关机超时，执行专属 PID 定向兜底清理...\n", vmIndex)
+		if lastInfo.PID > 0 {
+			killPID(lastInfo.PID)
+		}
+		if lastInfo.HeadlessPID > 0 {
+			killPID(lastInfo.HeadlessPID)
+		}
+	}
+
+	// 6. 检查是否存在其他正在运行的实例：仅在用户开启选项且无其他多开实例时直接结束启动器主面板（绝不触碰 MuMuNxService 等系统底层服务）
+	if cliExe != "" && closeLauncher {
+		if !hasOtherRunningInstances(cliExe, vmIndex) {
+			fmt.Println("[Emulator] 已开启关闭启动器，正在退出 MuMu 启动器主面板...")
+			launcherExe := filepath.Base(mumuPath)
+			if launcherExe == "" {
+				launcherExe = "MuMuNxMain.exe"
+			}
+			_ = exec.Command("taskkill", "/F", "/IM", launcherExe).Run()
+		} else {
+			fmt.Println("[Emulator] 检测到其他模拟器实例仍在运行，保留 MuMu 启动器环境")
+		}
+	}
+
+	fmt.Println("[Emulator] MuMu 模拟器已安全关闭")
 	return nil
+}
+
+type mumuVMInfo struct {
+	Index            any  `json:"index"`
+	IsProcessStarted bool `json:"is_process_started"`
+	PID              int  `json:"pid"`
+	HeadlessPID      int  `json:"headless_pid"`
+}
+
+// queryVMInfo 通过 mumu-cli 查询特定实例的运行状态与专属 PID
+func queryVMInfo(cliExe string, vmIndex int) (mumuVMInfo, error) {
+	cmd := exec.Command(cliExe, "info", "-v", fmt.Sprintf("%d", vmIndex))
+	cmd.Dir = filepath.Dir(cliExe)
+	out, err := cmd.Output()
+	if err != nil {
+		return mumuVMInfo{}, err
+	}
+	var info mumuVMInfo
+	if err := json.Unmarshal(out, &info); err != nil {
+		return mumuVMInfo{}, err
+	}
+	return info, nil
+}
+
+// hasOtherRunningInstances 检查系统中除当前实例外是否还有其他 MuMu 实例正在运行（保护多开）
+func hasOtherRunningInstances(cliExe string, currentVMIndex int) bool {
+	cmd := exec.Command(cliExe, "info", "-v", "all")
+	cmd.Dir = filepath.Dir(cliExe)
+	out, err := cmd.Output()
+	if err != nil {
+		// 命令异常时采取 Fail-Safe 保守策略，默认判定有其他实例，防止误杀主面板
+		return true
+	}
+	return parseOtherRunningInstances(out, currentVMIndex)
+}
+
+func parseOtherRunningInstances(out []byte, currentVMIndex int) bool {
+	targetIndexStr := fmt.Sprintf("%d", currentVMIndex)
+
+	// 尝试反序列化为数组（多实例场景）
+	var list []mumuVMInfo
+	if err := json.Unmarshal(out, &list); err == nil {
+		for _, vm := range list {
+			if fmt.Sprintf("%v", vm.Index) != targetIndexStr && vm.IsProcessStarted {
+				return true
+			}
+		}
+		return false
+	}
+
+	// 尝试反序列化为单个对象（单实例场景）
+	var single mumuVMInfo
+	if err := json.Unmarshal(out, &single); err == nil {
+		if fmt.Sprintf("%v", single.Index) != targetIndexStr && single.IsProcessStarted {
+			return true
+		}
+		return false
+	}
+
+	// 解析完全异常时，同样采取 Fail-Safe 保守策略
+	return true
+}
+
+// killPID 定向强制终止指定 PID 进程
+func killPID(pid int) {
+	if pid <= 0 {
+		return
+	}
+	_ = exec.Command("taskkill", "/F", "/PID", fmt.Sprintf("%d", pid)).Run()
 }
 
 // stripJSONComments 轻量剥离 JSONC 中的 // 注释，仅做基础双引号包裹判断以防误伤 URL

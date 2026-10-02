@@ -72,10 +72,17 @@ agent/
      且按钮位于文字的右侧（$X_{btn} > X_{kw}$）；
   5. 命中后将按钮坐标返回作为点击目标，完成精准行对齐操作。
 
-#### 2. `Emulator` 模拟器自愈与自动化拉起
-* **路径嗅探**：通过 Windows 注册表和常见安装目录（如 `D:\MuMuPlayer-12.0\`、`C:\Program Files\Netease\MuMuPlayer-12.0\`）自适应探测 MuMu 安装路径；
-* **ADB 控制**：通过 MuMu 的 `MuMuManager.exe` 命令行启动实例，等待 ADB 守护端口就绪（如 `127.0.0.1:16384` 等）；
-* **游戏直启**：通过 ADB Shell `monkey -p com.papegames.nn4.cn -c android.intent.category.LAUNCHER 1` 直达游戏进程，免去桌面图标点击。
+#### 2. `Emulator` 模拟器生命周期管理与干净退出
+* **路径嗅探**：通过 Windows 注册表和常见安装目录（如 `D:\MuMuPlayer-12.0\`、`C:\Data\MUMU\`）自适应探测 MuMu 安装路径；
+* **ADB 控制**：通过 MuMu 的 `mumu-cli.exe` 命令行启动实例，等待 ADB 守护端口就绪（如 `127.0.0.1:16384` 等）；
+* **游戏直启**：通过 ADB Shell `monkey -p com.papegames.nn4.cn -c android.intent.category.LAUNCHER 1` 直达游戏进程，免去桌面图标点击；
+* **干净退出与防后台自拉起机制**（`ShutdownEmulator`）：
+  1. **前置状态与专属 PID 获取**：关机前通过 `mumu-cli info -v <vmIndex>` 提取目标实例的运行状态与唯一 PID / HeadlessPID，若当前未运行则直接断连 ADB 退出；
+  2. **安全落盘**：优先向 `mumu-cli` 发送 `control -v <vmIndex> shutdown` 指令（若未检测到 CLI 则降级尝试 `adb shell reboot -p`），确保安卓虚拟磁盘数据平稳安全落盘；
+  3. **切断 ADB 连接**：主动执行 `adb disconnect <address>`，切断端口长连接，彻底切除后台守护机制因 ADB 心跳/探测轮询被动拉起模拟器的核心诱因；
+  4. **零开销精准轮询**：基于 `mumu-cli info` 的 `is_process_started` 字段直接轮询退出状态（最长 15s，保障磁盘充分安全落盘），不派生高开销的 `tasklist.exe` 控制台子进程；
+  5. **专属 PID 定向兜底**：若实例超时未退，仅对该实例专属的 PID 执行 `taskkill /F /PID <pid>`，绝对不用全局 `/IM` 强杀，100% 保护其他多开挂机实例不受任何影响；
+  6. **多开感知与边界收敛**：通过 `info -v all` 查询系统其余多开状态；仅在无其他运行实例时对主面板窗口（`MuMuNxMain.exe`）发送单次正常关闭信号，且绝不触碰 `MuMuNxService.exe` 等底层驱动服务。
 
 ---
 

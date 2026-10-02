@@ -210,7 +210,10 @@
         "action": {
             "type": "Custom",
             "param": {
-                "custom_action": "ShutdownEmulator"
+                "custom_action": "ShutdownEmulator",
+                "custom_action_param": {
+                    "close_launcher": true
+                }
             }
         },
         "$__mpe_code": {

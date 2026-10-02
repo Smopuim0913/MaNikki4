@@ -177,11 +177,52 @@
             "name": "退出模拟器",
             "label": "🛑 退出模拟器",
             "entry": "退出模拟器",
+            "option": [
+                "CloseLauncherOption"
+            ],
             "description": "全部日常任务执行完毕后，安全退出 MuMu 模拟器",
             "default_check": false
         }
     ],
     "option": {
+        "CloseLauncherOption": {
+            "type": "switch",
+            "label": "同时关闭启动器主面板",
+            "description": "开启后在模拟器退出完毕后直接关闭 MuMu 启动器主面板，彻底清除后台残留；关闭时仅退出模拟器虚拟机并保留启动器",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "开启",
+                    "pipeline_override": {
+                        "退出模拟器": {
+                            "action": {
+                                "param": {
+                                    "custom_action_param": {
+                                        "close_launcher": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "label": "关闭",
+                    "pipeline_override": {
+                        "退出模拟器": {
+                            "action": {
+                                "param": {
+                                    "custom_action_param": {
+                                        "close_launcher": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "default_case": "Yes"
+        },
         "MuMuConfig": {
             "type": "input",
             "label": "MuMu模拟器路径",
