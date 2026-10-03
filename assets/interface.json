@@ -128,7 +128,10 @@
             "name": "评选赛",
             "label": "🏆 搭配评选赛",
             "entry": "评选赛_开始",
-            "description": "进入搭配评选赛，自动当评委完成每日点赞投票",
+            "option": [
+                "ContestAutoSubmitOption"
+            ],
+            "description": "进入搭配评选赛，自动当评委点赞投票与自动投稿参赛",
             "default_check": true
         },
         {
@@ -185,6 +188,42 @@
         }
     ],
     "option": {
+        "ContestAutoSubmitOption": {
+            "type": "switch",
+            "label": "自动投稿参赛",
+            "description": "开启后若本周评选赛尚未投稿，自动随机穿戴已集齐套装并完成投稿参赛；关闭时仅执行每日点赞投票",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "开启",
+                    "pipeline_override": {
+                        "评选赛_中继": {
+                            "next": [
+                                "评选赛_次数不足",
+                                "评选赛_进入评选",
+                                "评选赛_进入参赛",
+                                "评选赛_已投稿"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "label": "关闭",
+                    "pipeline_override": {
+                        "评选赛_中继": {
+                            "next": [
+                                "评选赛_次数不足",
+                                "评选赛_进入评选",
+                                "评选赛_未选参赛",
+                                "评选赛_已投稿"
+                            ]
+                        }
+                    }
+                }
+            ],
+            "default_case": "Yes"
+        },
         "CloseLauncherOption": {
             "type": "switch",
             "label": "同时关闭启动器主面板",
