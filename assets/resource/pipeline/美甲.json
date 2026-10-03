@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790954621060,
+            "lastSyncTime": 1791028000027,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\美甲.json",
             "savedViewport": {
-                "x": -4665,
-                "y": -316,
-                "zoom": 1.13
+                "x": -3954,
+                "y": -107,
+                "zoom": 0.7
             },
             "filename": "美甲",
             "version": "v2.0.6"
@@ -117,7 +117,8 @@
         "post_wait_freezes": 500,
         "next": [
             "美甲_确认无收益",
-            "美甲_提取收益"
+            "美甲_提取收益",
+            "[JumpBack]美甲_特约顾客"
         ],
         "$__mpe_code": {
             "position": {
@@ -217,7 +218,8 @@
         "post_wait_freezes": 500,
         "next": [
             "美甲_雇佣店员",
-            "美甲_提取收益"
+            "美甲_提取收益",
+            "[JumpBack]美甲_特约顾客"
         ],
         "$__mpe_code": {
             "position": {
@@ -321,6 +323,32 @@
             "position": {
                 "x": 6018,
                 "y": 162
+            }
+        }
+    },
+    "美甲_特约顾客": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    99,
+                    794,
+                    219,
+                    99
+                ],
+                "expected": [
+                    "稍后接待"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "$__mpe_code": {
+            "position": {
+                "x": 6964,
+                "y": 906
             }
         }
     }

@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791010251353,
+            "lastSyncTime": 1791027384088,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\评选赛.json",
             "savedViewport": {
-                "x": -3678,
-                "y": -851,
-                "zoom": 0.71
+                "x": -7348,
+                "y": -611,
+                "zoom": 0.9
             },
             "filename": "评选赛",
             "version": "v2.0.6"
@@ -44,6 +44,135 @@
             }
         }
     },
+    "评选赛_二次确认上传": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    322,
+                    932,
+                    316,
+                    141
+                ],
+                "expected": [
+                    "确认上传"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "[JumpBack]评选赛_未勾选上传定格",
+            "[JumpBack]评选赛_文件上传失败",
+            "评选赛_投稿完成"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8589,
+                "y": 992
+            }
+        }
+    },
+    "评选赛_参赛下滑": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    575,
+                    492,
+                    124,
+                    598
+                ],
+                "expected": [
+                    "鞋子"
+                ]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "end": [
+                    [
+                        573,
+                        27,
+                        119,
+                        108
+                    ]
+                ]
+            }
+        },
+        "next": [
+            "评选赛_套装"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6530,
+                "y": 991
+            }
+        }
+    },
+    "评选赛_套装": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    570,
+                    249,
+                    135,
+                    1004
+                ],
+                "expected": [
+                    "套装"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "评选赛_随机选择套装"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6891,
+                "y": 980
+            }
+        }
+    },
+    "评选赛_已投稿": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    515,
+                    1149,
+                    190,
+                    119
+                ],
+                "expected": [
+                    "修改作品"
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "评选赛参赛期间，已投稿任务结束"
+        },
+        "next": [
+            "评选赛_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6165,
+                "y": 1307
+            }
+        }
+    },
     "评选赛_开始": {
         "next": [
             "评选赛_确认在主菜单",
@@ -53,6 +182,181 @@
             "position": {
                 "x": 4349,
                 "y": 548
+            }
+        }
+    },
+    "评选赛_投稿参赛": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    217,
+                    1098,
+                    299,
+                    149
+                ],
+                "expected": [
+                    "投稿参赛"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "评选赛_确认上传"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7937,
+                "y": 1007
+            }
+        }
+    },
+    "评选赛_投稿完成": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    15,
+                    1015,
+                    201,
+                    119
+                ],
+                "expected": [
+                    "搭配详情"
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "评选赛投稿完成"
+        },
+        "next": [
+            "评选赛_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8965,
+                "y": 1129
+            }
+        }
+    },
+    "评选赛_换好了": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    10,
+                    1114,
+                    222,
+                    128
+                ],
+                "expected": [
+                    "换好了"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "评选赛_没选到",
+            "评选赛_投稿参赛"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7611,
+                "y": 991
+            }
+        }
+    },
+    "评选赛_文件上传失败": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    323,
+                    654,
+                    307,
+                    98
+                ],
+                "expected": [
+                    "确定"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "评选赛文件上传失败"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 8963,
+                "y": 823
+            }
+        }
+    },
+    "评选赛_未勾选上传定格": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    323,
+                    654,
+                    307,
+                    98
+                ],
+                "expected": [
+                    "确认"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "$__mpe_code": {
+            "position": {
+                "x": 8956,
+                "y": 526
+            }
+        }
+    },
+    "评选赛_未选参赛": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    515,
+                    1149,
+                    190,
+                    119
+                ],
+                "expected": [
+                    "我要参赛"
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "评选赛参赛期间，未勾选自动参赛，任务结束"
+        },
+        "next": [
+            "评选赛_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6165,
+                "y": 1635
             }
         }
     },
@@ -83,6 +387,36 @@
             "position": {
                 "x": 6169,
                 "y": 268
+            }
+        }
+    },
+    "评选赛_没选到": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    158,
+                    547,
+                    402,
+                    211
+                ],
+                "expected": [
+                    "知道了"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "评选赛_随机选择套装"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7464,
+                "y": 648
             }
         }
     },
@@ -141,6 +475,36 @@
             "position": {
                 "x": 6899,
                 "y": 627
+            }
+        }
+    },
+    "评选赛_确认上传": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    217,
+                    1098,
+                    299,
+                    149
+                ],
+                "expected": [
+                    "确认上传"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "评选赛_二次确认上传"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8274,
+                "y": 1007
             }
         }
     },
@@ -220,6 +584,38 @@
             }
         }
     },
+    "评选赛_进入参赛": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    515,
+                    1149,
+                    190,
+                    119
+                ],
+                "expected": [
+                    "我要参赛"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "开始参赛"
+        },
+        "next": [
+            "评选赛_参赛下滑"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6164,
+                "y": 959
+            }
+        }
+    },
     "评选赛_进入评选": {
         "recognition": {
             "type": "OCR",
@@ -281,106 +677,6 @@
             }
         }
     },
-    "评选赛_进入参赛": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    515,
-                    1149,
-                    190,
-                    119
-                ],
-                "expected": [
-                    "我要参赛"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "开始参赛"
-        },
-        "next": [
-            "评选赛_参赛下滑"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6164,
-                "y": 959
-            }
-        }
-    },
-    "评选赛_参赛下滑": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    575,
-                    492,
-                    124,
-                    598
-                ],
-                "expected": [
-                    "鞋子"
-                ]
-            }
-        },
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "end": [
-                    [
-                        573,
-                        27,
-                        119,
-                        108
-                    ]
-                ]
-            }
-        },
-        "next": [
-            "评选赛_套装"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6530,
-                "y": 991
-            }
-        }
-    },
-    "评选赛_套装": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    570,
-                    249,
-                    135,
-                    1004
-                ],
-                "expected": [
-                    "套装"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "next": [
-            "评选赛_随机选择套装"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6891,
-                "y": 980
-            }
-        }
-    },
     "评选赛_随机选择套装": {
         "recognition": {
             "type": "OCR",
@@ -416,302 +712,6 @@
             "position": {
                 "x": 7252,
                 "y": 982
-            }
-        }
-    },
-    "评选赛_没选到": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    158,
-                    547,
-                    402,
-                    211
-                ],
-                "expected": [
-                    "知道了"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "next": [
-            "评选赛_随机选择套装"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7464,
-                "y": 648
-            }
-        }
-    },
-    "评选赛_换好了": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    10,
-                    1114,
-                    222,
-                    128
-                ],
-                "expected": [
-                    "换好了"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "next": [
-            "评选赛_没选到",
-            "评选赛_投稿参赛"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7611,
-                "y": 991
-            }
-        }
-    },
-    "评选赛_投稿参赛": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    217,
-                    1098,
-                    299,
-                    149
-                ],
-                "expected": [
-                    "投稿参赛"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "next": [
-            "评选赛_确认上传"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7937,
-                "y": 1007
-            }
-        }
-    },
-    "评选赛_确认上传": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    217,
-                    1098,
-                    299,
-                    149
-                ],
-                "expected": [
-                    "确认上传"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "next": [
-            "评选赛_二次确认上传"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8274,
-                "y": 1007
-            }
-        }
-    },
-    "评选赛_二次确认上传": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    322,
-                    932,
-                    316,
-                    141
-                ],
-                "expected": [
-                    "确认上传"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "next": [
-            "[JumpBack]评选赛_未勾选上传定格",
-            "[JumpBack]评选赛_文件上传失败",
-            "评选赛_投稿完成"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8589,
-                "y": 992
-            }
-        }
-    },
-    "评选赛_未勾选上传定格": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    323,
-                    654,
-                    307,
-                    98
-                ],
-                "expected": [
-                    "确认"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": "",
-        "$__mpe_code": {
-            "position": {
-                "x": 8956,
-                "y": 526
-            }
-        }
-    },
-    "评选赛_文件上传失败": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    323,
-                    654,
-                    307,
-                    98
-                ],
-                "expected": [
-                    "确定"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "评选赛文件上传失败"
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 8963,
-                "y": 823
-            }
-        }
-    },
-    "评选赛_投稿完成": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    323,
-                    654,
-                    307,
-                    98
-                ],
-                "expected": [
-                    "搭配详情"
-                ]
-            }
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "评选赛投稿完成"
-        },
-        "next": [
-            "评选赛_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8965,
-                "y": 1129
-            }
-        }
-    },
-    "评选赛_已投稿": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    515,
-                    1149,
-                    190,
-                    119
-                ],
-                "expected": [
-                    "修改作品"
-                ]
-            }
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "评选赛参赛期间，已投稿任务结束"
-        },
-        "next": [
-            "评选赛_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6165,
-                "y": 1307
-            }
-        }
-    },
-    "评选赛_未选参赛": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    515,
-                    1149,
-                    190,
-                    119
-                ],
-                "expected": [
-                    "我要参赛"
-                ]
-            }
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "评选赛参赛期间，未勾选自动参赛，任务结束"
-        },
-        "next": [
-            "评选赛_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6165,
-                "y": 1635
             }
         }
     }
