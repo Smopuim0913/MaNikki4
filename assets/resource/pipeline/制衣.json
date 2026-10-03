@@ -3,17 +3,45 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776519761,
+            "lastSyncTime": 1791007424306,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\制衣.json",
             "savedViewport": {
-                "x": 591,
-                "y": -472,
-                "zoom": 0.66
+                "x": -1563,
+                "y": -708,
+                "zoom": 0.71
             },
             "filename": "制衣",
-            "version": "v2.0.4"
+            "version": "v2.0.6"
+        }
+    },
+    "制衣_安全退出": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    457,
+                    388,
+                    189,
+                    567
+                ],
+                "expected": [
+                    "前往"
+                ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "当前制衣勾选材料收集目标已完成，存在未勾选的收集材料需手动处理"
+        },
+        "next": [
+            "制衣_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2634,
+                "y": 1307
+            }
         }
     },
     "$__mpe_external_公共：返回主菜单_制衣": {
@@ -540,7 +568,8 @@
         "next": [
             "制衣_材料_商店",
             "制衣_材料_时空回廊",
-            "制衣_材料_主线"
+            "制衣_材料_主线",
+            "制衣_安全退出"
         ],
         "$__mpe_code": {
             "position": {

@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776555096,
+            "lastSyncTime": 1790954621060,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\美甲.json",
             "savedViewport": {
-                "x": -1775,
-                "y": 56,
-                "zoom": 0.51
+                "x": -4665,
+                "y": -316,
+                "zoom": 1.13
             },
             "filename": "美甲",
-            "version": "v2.0.4"
+            "version": "v2.0.6"
         }
     },
     "$__mpe_external_公共：返回主菜单_美甲": {
@@ -253,6 +253,12 @@
         "recognition": {
             "type": "OCR",
             "param": {
+                "roi": [
+                    20,
+                    1085,
+                    172,
+                    187
+                ],
                 "expected": [
                     "设计中心"
                 ]
@@ -267,8 +273,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 4786,
-                "y": 372
+                "x": 4791,
+                "y": 345
             }
         }
     },

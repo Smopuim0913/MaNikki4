@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776529047,
+            "lastSyncTime": 1791006873673,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\抽卡.json",
             "savedViewport": {
-                "x": -3154,
-                "y": -347,
-                "zoom": 0.85
+                "x": -4599,
+                "y": 26,
+                "zoom": 0.8
             },
             "filename": "抽卡",
-            "version": "v2.0.4"
+            "version": "v2.0.6"
         }
     },
     "$__mpe_external_公共：返回主菜单_抽卡": {
@@ -73,10 +73,10 @@
             "type": "Click",
             "param": {
                 "target_offset": [
-                    -43,
-                    -76,
-                    94,
-                    20
+                    2,
+                    -49,
+                    -2,
+                    -3
                 ]
             }
         },
@@ -86,8 +86,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 6211,
-                "y": 249
+                "x": 6215,
+                "y": 133
             }
         }
     },
@@ -142,15 +142,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [
-                    -43,
-                    -76,
-                    94,
-                    20
-                ]
-            }
+            "type": "Click"
         },
         "post_wait_freezes": 200,
         "next": [
@@ -197,28 +189,20 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 6554,
-                "y": 291
+                "x": 6597,
+                "y": 132
             }
         }
     },
     "抽阁_左滑": {
         "action": {
-            "type": "Swipe",
+            "type": "Click",
             "param": {
-                "begin": [
-                    104,
-                    517,
-                    50,
-                    60
-                ],
-                "end": [
-                    [
-                        519,
-                        537,
-                        73,
-                        73
-                    ]
+                "target": [
+                    15,
+                    466,
+                    74,
+                    139
                 ]
             }
         },
@@ -231,31 +215,6 @@
             "position": {
                 "x": 5551,
                 "y": 387
-            }
-        }
-    },
-    "抽阁_左滑寻找其他免费": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    15,
-                    466,
-                    74,
-                    139
-                ]
-            }
-        },
-        "post_wait_freezes": 1500,
-        "next": [
-            "[JumpBack]抽阁_其他免费的",
-            "抽阁_确认回到谜之海",
-            "抽阁_左滑寻找其他免费"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 5509,
-                "y": 834
             }
         }
     },
@@ -373,7 +332,7 @@
         },
         "next": [
             "抽阁_免费",
-            "抽阁_退出"
+            "抽阁_无可抽次数"
         ],
         "$__mpe_code": {
             "position": {
@@ -533,6 +492,45 @@
             "position": {
                 "x": 7162,
                 "y": 813
+            }
+        }
+    },
+    "抽阁_无可抽次数": {
+        "focus": {
+            "Node.Action.Succeeded": "谜之阁已无每日免费，判断当日已抽过免费，直接退出流程"
+        },
+        "next": [
+            "抽阁_退出"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6218,
+                "y": 534
+            }
+        }
+    },
+    "抽阁_左滑寻找其他免费": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    15,
+                    466,
+                    74,
+                    139
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "next": [
+            "[JumpBack]抽阁_其他免费的",
+            "抽阁_确认回到谜之海",
+            "抽阁_左滑寻找其他免费"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5509,
+                "y": 834
             }
         }
     }

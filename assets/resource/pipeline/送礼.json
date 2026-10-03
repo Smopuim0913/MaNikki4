@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790775102864,
+            "lastSyncTime": 1791007639773,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\送礼.json",
             "savedViewport": {
-                "x": -4732,
-                "y": -419,
-                "zoom": 1.17
+                "x": -1822,
+                "y": 177,
+                "zoom": 0.48
             },
             "filename": "送礼",
-            "version": "v2.0.4"
+            "version": "v2.0.6"
         }
     },
     "$__mpe_external_公共：返回主菜单_送礼": {
@@ -23,6 +23,10 @@
                 "y": 650
             },
             "extra_positions": [
+                {
+                    "x": 6472,
+                    "y": 217
+                },
                 {
                     "x": 8740,
                     "y": 842
@@ -77,7 +81,7 @@
             "type": "Click"
         },
         "next": [
-            "好友_返回"
+            "好友_返回中继"
         ],
         "$__mpe_code": {
             "position": {
@@ -106,7 +110,7 @@
         },
         "post_wait_freezes": 1000,
         "next": [
-            "好友_返回"
+            "好友_返回中继"
         ],
         "$__mpe_code": {
             "position": {
@@ -140,31 +144,14 @@
             }
         }
     },
-    "好友_返回": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    0,
-                    14,
-                    128,
-                    131
-                ],
-                "template": [
-                    "闪暖-返回箭头.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
+    "好友_返回中继": {
         "post_wait_freezes": 300,
         "focus": {
             "Node.Recognition.Succeeded": ""
         },
         "next": [
             "好友_结束",
-            "好友_返回"
+            "[JumpBack]公共：返回主菜单"
         ],
         "$__mpe_code": {
             "position": {

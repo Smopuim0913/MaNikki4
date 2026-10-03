@@ -3,52 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790850435901,
+            "lastSyncTime": 1790965525773,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\登陆游戏.json",
             "savedViewport": {
-                "x": -3660,
-                "y": 499,
-                "zoom": 0.78
+                "x": -4685,
+                "y": 576,
+                "zoom": 1
             },
             "filename": "登陆游戏",
-            "version": "v2.0.5"
-        }
-    },
-    "登陆_关闭红包页面": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    557,
-                    1017,
-                    145,
-                    36
-                ],
-                "expected": [
-                    "今日不再提示"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "repeat": 2,
-        "repeat_delay": 200,
-        "$__mpe_code": {
-            "position": {
-                "x": 5720,
-                "y": -454
-            }
+            "version": "v2.0.6"
         }
     },
     "登陆_中继": {
@@ -97,6 +62,41 @@
             "position": {
                 "x": 5413,
                 "y": -122
+            }
+        }
+    },
+    "登陆_关闭红包页面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    557,
+                    1017,
+                    145,
+                    36
+                ],
+                "expected": [
+                    "今日不再提示"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "repeat": 2,
+        "repeat_delay": 200,
+        "$__mpe_code": {
+            "position": {
+                "x": 5720,
+                "y": -454
             }
         }
     },
@@ -258,30 +258,21 @@
             }
         }
     },
-    "登陆游戏": {
-        "timeout": 50000,
-        "next": [
-            "登陆_中继"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 4486,
-                "y": 316
-            }
-        }
-    },
     "登陆_领取红包": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "roi": [
-                    11,
-                    444,
-                    197,
-                    674
+                    6,
+                    620,
+                    155,
+                    420
                 ],
                 "template": [
                     "红包.png"
+                ],
+                "threshold": [
+                    0.85
                 ]
             }
         },
@@ -296,6 +287,18 @@
             "position": {
                 "x": 5413,
                 "y": -464
+            }
+        }
+    },
+    "登陆游戏": {
+        "timeout": 50000,
+        "next": [
+            "登陆_中继"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4486,
+                "y": 316
             }
         }
     }
