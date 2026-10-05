@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791193856541,
+            "lastSyncTime": 1791195680328,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\评选赛.json",
             "savedViewport": {
-                "x": -4764,
-                "y": -352,
-                "zoom": 1.13
+                "x": -3884,
+                "y": -218,
+                "zoom": 0.78
             },
             "filename": "评选赛",
             "version": "v2.0.6"
@@ -622,10 +622,10 @@
             "type": "OCR",
             "param": {
                 "roi": [
-                    515,
-                    1149,
-                    190,
-                    119
+                    393,
+                    1121,
+                    171,
+                    150
                 ],
                 "expected": [
                     "我当评委"
