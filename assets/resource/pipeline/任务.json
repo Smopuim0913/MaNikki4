@@ -3,17 +3,25 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791193672035,
+            "lastSyncTime": 1791194619940,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\任务.json",
             "savedViewport": {
-                "x": -4882,
-                "y": -163,
-                "zoom": 1
+                "x": -2723,
+                "y": 256,
+                "zoom": 0.53
             },
             "filename": "任务",
             "version": "v2.0.6"
+        }
+    },
+    "任务_签到结束": {
+        "$__mpe_code": {
+            "position": {
+                "x": 7108,
+                "y": 520
+            }
         }
     },
     "$__mpe_external_公共：返回主菜单_任务": {
@@ -120,7 +128,8 @@
         "repeat": 2,
         "repeat_delay": 300,
         "next": [
-            "任务_每日签到点击空白"
+            "[JumpBack]任务_每日签到点击空白",
+            "任务_签到结束"
         ],
         "$__mpe_code": {
             "position": {
@@ -130,6 +139,16 @@
         }
     },
     "任务_每日签到点击空白": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "每日任务",
+                    "时尚任务"
+                ]
+            }
+        },
+        "inverse": true,
         "action": {
             "type": "Click",
             "param": {
@@ -141,10 +160,11 @@
                 ]
             }
         },
+        "repeat_wait_freezes": 200,
         "$__mpe_code": {
             "position": {
-                "x": 6785,
-                "y": 508
+                "x": 6777,
+                "y": 461
             }
         }
     },
@@ -226,7 +246,7 @@
         "action": {
             "type": "Click"
         },
-        "post_wait_freezes": 200,
+        "post_wait_freezes": 1000,
         "next": [
             "任务_确认已在任务界面",
             "任务_点击任务"
@@ -320,6 +340,7 @@
                 ]
             }
         },
+        "pre_wait_freezes": 200,
         "next": [
             "[JumpBack]任务_每日返钻",
             "[JumpBack]任务_检查存在可领取",
