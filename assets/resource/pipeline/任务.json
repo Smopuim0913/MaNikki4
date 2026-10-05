@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790851945801,
+            "lastSyncTime": 1791193672035,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\任务.json",
             "savedViewport": {
-                "x": -3866,
-                "y": 486,
-                "zoom": 0.7
+                "x": -4882,
+                "y": -163,
+                "zoom": 1
             },
             "filename": "任务",
-            "version": "v2.0.5"
+            "version": "v2.0.6"
         }
     },
     "$__mpe_external_公共：返回主菜单_任务": {
@@ -148,6 +148,66 @@
             }
         }
     },
+    "任务_每日返钻": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchRowButton",
+                "custom_recognition_param": {
+                    "button": "前往",
+                    "keyword": "每日返钻|特权卡/钻石卡",
+                    "y_tolerance": 50
+                },
+                "roi": [
+                    10,
+                    605,
+                    695,
+                    667
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1000,
+        "next": [
+            "[JumpBack]任务_钻石卡",
+            "[JumpBack]任务_特权卡",
+            "任务_每日返钻返回"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6474,
+                "y": -211
+            }
+        }
+    },
+    "任务_每日返钻返回": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    14,
+                    128,
+                    131
+                ],
+                "template": [
+                    "闪暖-返回箭头.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1000,
+        "$__mpe_code": {
+            "position": {
+                "x": 7245,
+                "y": -283
+            }
+        }
+    },
     "任务_点击任务": {
         "recognition": {
             "type": "OCR",
@@ -168,12 +228,61 @@
         },
         "post_wait_freezes": 200,
         "next": [
-            "任务_确认已在任务界面"
+            "任务_确认已在任务界面",
+            "任务_点击任务"
         ],
         "$__mpe_code": {
             "position": {
                 "x": 5574,
                 "y": 361
+            }
+        }
+    },
+    "任务_点击空白": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 7247,
+                "y": -476
+            }
+        }
+    },
+    "任务_特权卡": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    369,
+                    211,
+                    335,
+                    552
+                ],
+                "expected": [
+                    "106"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "任务_点击空白"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6783,
+                "y": -146
             }
         }
     },
@@ -247,6 +356,35 @@
             }
         }
     },
+    "任务_钻石卡": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    12,
+                    222,
+                    343,
+                    539
+                ],
+                "expected": [
+                    "56"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "任务_点击空白"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6779,
+                "y": -506
+            }
+        }
+    },
     "任务_领取总奖励": {
         "next": [
             "任务_领取每日奖励"
@@ -317,143 +455,6 @@
             "position": {
                 "x": 7215,
                 "y": 745
-            }
-        }
-    },
-    "任务_每日返钻": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchRowButton",
-                "custom_recognition_param": {
-                    "button": "前往",
-                    "keyword": "每日返钻|特权卡/钻石卡",
-                    "y_tolerance": 50
-                },
-                "roi": [
-                    10,
-                    605,
-                    695,
-                    667
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 1000,
-        "next": [
-            "[JumpBack]任务_钻石卡",
-            "[JumpBack]任务_特权卡",
-            "任务_每日返钻返回"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6474,
-                "y": -211
-            }
-        }
-    },
-    "任务_钻石卡": {
-        "max_hit": 1,
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    12,
-                    222,
-                    343,
-                    539
-                ],
-                "expected": [
-                    "56"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "next": [
-            "任务_点击空白"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6779,
-                "y": -506
-            }
-        }
-    },
-    "任务_点击空白": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 7247,
-                "y": -476
-            }
-        }
-    },
-    "任务_特权卡": {
-        "max_hit": 1,
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    369,
-                    211,
-                    335,
-                    552
-                ],
-                "expected": [
-                    "106"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "next": [
-            "任务_点击空白"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6783,
-                "y": -146
-            }
-        }
-    },
-    "任务_每日返钻返回": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    0,
-                    14,
-                    128,
-                    131
-                ],
-                "template": [
-                    "闪暖-返回箭头.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 1000,
-        "$__mpe_code": {
-            "position": {
-                "x": 7245,
-                "y": -283
             }
         }
     }

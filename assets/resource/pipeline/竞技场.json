@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791191973439,
+            "lastSyncTime": 1791193818682,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\竞技场.json",
             "savedViewport": {
-                "x": -3041,
-                "y": -299,
-                "zoom": 0.6
+                "x": -4831,
+                "y": -291,
+                "zoom": 1.13
             },
             "filename": "竞技场",
             "version": "v2.0.6"
@@ -281,6 +281,72 @@
             }
         }
     },
+    "竞技场_挑战排名提升": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    223,
+                    164,
+                    302,
+                    152
+                ],
+                "expected": [
+                    "排名提升"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 9011,
+                "y": 792
+            }
+        }
+    },
+    "竞技场_挑战结果面板": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    244,
+                    208,
+                    247,
+                    110
+                ],
+                "expected": [
+                    "快速挑战"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 9011,
+                "y": 565
+            }
+        }
+    },
     "竞技场_挑战结算": {
         "action": {
             "type": "Click",
@@ -306,6 +372,40 @@
             "position": {
                 "x": 8604,
                 "y": 460
+            }
+        }
+    },
+    "竞技场_挑战结算奖励": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    162,
+                    381,
+                    370,
+                    133
+                ],
+                "expected": [
+                    "恭喜获得",
+                    "恭喜"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 9011,
+                "y": 351
             }
         }
     },
@@ -549,7 +649,8 @@
         },
         "post_wait_freezes": 200,
         "next": [
-            "竞技场_钻石竞技场"
+            "竞技场_钻石竞技场",
+            "竞技场_点击主菜单"
         ],
         "$__mpe_code": {
             "position": {
@@ -649,6 +750,33 @@
             }
         }
     },
+    "竞技场_结算奖励": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "恭喜获得"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 6163,
+                "y": 784
+            }
+        }
+    },
     "竞技场_结算界面": {
         "recognition": {
             "type": "OCR",
@@ -676,6 +804,14 @@
             "position": {
                 "x": 5734,
                 "y": 837
+            }
+        }
+    },
+    "竞技场_结算结束": {
+        "$__mpe_code": {
+            "position": {
+                "x": 6162,
+                "y": 1020
             }
         }
     },
@@ -787,141 +923,6 @@
             "position": {
                 "x": 5233,
                 "y": 474
-            }
-        }
-    },
-    "竞技场_结算奖励": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": [
-                    "恭喜获得"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 6163,
-                "y": 784
-            }
-        }
-    },
-    "竞技场_结算结束": {
-        "$__mpe_code": {
-            "position": {
-                "x": 6162,
-                "y": 1020
-            }
-        }
-    },
-    "竞技场_挑战结算奖励": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    162,
-                    381,
-                    370,
-                    133
-                ],
-                "expected": [
-                    "恭喜获得",
-                    "恭喜"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 9011,
-                "y": 351
-            }
-        }
-    },
-    "竞技场_挑战结果面板": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    244,
-                    208,
-                    247,
-                    110
-                ],
-                "expected": [
-                    "快速挑战"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 9011,
-                "y": 565
-            }
-        }
-    },
-    "竞技场_挑战排名提升": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    223,
-                    164,
-                    302,
-                    152
-                ],
-                "expected": [
-                    "排名提升"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 9011,
-                "y": 792
             }
         }
     }

@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1789745951566,
+            "lastSyncTime": 1791193843313,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\联盟任务.json",
             "savedViewport": {
-                "x": -6898,
-                "y": 280,
-                "zoom": 0.91
+                "x": -4327,
+                "y": -108,
+                "zoom": 1.13
             },
             "filename": "联盟任务",
-            "version": "v1.10.1"
+            "version": "v2.0.6"
         }
     },
     "$__mpe_external_公共：返回主菜单_联盟任务": {
@@ -75,10 +75,10 @@
             "childrenLabels": [
                 "联盟福利",
                 "联盟福利_一键领取",
+                "联盟福利_关闭弹窗",
                 "联盟福利_确认已在",
                 "联盟福利_返回",
-                "联盟福利_领完了",
-                "联盟福利_关闭弹窗"
+                "联盟福利_领完了"
             ],
             "width": 1453,
             "height": 671
@@ -342,7 +342,8 @@
             }
         },
         "next": [
-            "联盟_捐献"
+            "联盟_捐献",
+            "联盟_点击联盟"
         ],
         "$__mpe_code": {
             "position": {
@@ -403,6 +404,18 @@
             "position": {
                 "x": 6468,
                 "y": 240
+            }
+        }
+    },
+    "联盟_自愈": {
+        "max_hit": 1,
+        "next": [
+            "公共：返回主菜单"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4200,
+                "y": 600
             }
         }
     },
@@ -495,6 +508,45 @@
             }
         }
     },
+    "联盟福利_关闭弹窗": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    322,
+                    757,
+                    180,
+                    189
+                ],
+                "expected": [
+                    "机密任务"
+                ]
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "next": [
+            "联盟福利_一键领取",
+            "联盟福利_返回"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8201,
+                "y": -59
+            }
+        }
+    },
     "联盟福利_确认已在": {
         "recognition": {
             "type": "OCR",
@@ -575,57 +627,6 @@
             "position": {
                 "x": 8180,
                 "y": 339
-            }
-        }
-    },
-    "联盟福利_关闭弹窗": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    322,
-                    757,
-                    180,
-                    189
-                ],
-                "expected": [
-                    "机密任务"
-                ]
-            }
-        },
-        "inverse": true,
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "post_wait_freezes": 200,
-        "next": [
-            "联盟福利_一键领取",
-            "联盟福利_返回"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8201,
-                "y": -59
-            }
-        }
-    },
-    "联盟_自愈": {
-        "max_hit": 1,
-        "next": [
-            "公共：返回主菜单"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 4200,
-                "y": 600
             }
         }
     }

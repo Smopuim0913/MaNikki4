@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776516948,
+            "lastSyncTime": 1791193686656,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\分享.json",
             "savedViewport": {
-                "x": -2759,
-                "y": 481,
-                "zoom": 0.58
+                "x": -6805,
+                "y": 688,
+                "zoom": 1.13
             },
             "filename": "分享",
-            "version": "v2.0.4"
+            "version": "v2.0.6"
         }
     },
     "$__mpe_external_公共：返回主菜单_分享": {
@@ -121,7 +121,8 @@
         },
         "post_wait_freezes": 500,
         "next": [
-            "分享_点击时空回廊"
+            "分享_点击时空回廊",
+            "分享_点击主菜单"
         ],
         "$__mpe_code": {
             "position": {
