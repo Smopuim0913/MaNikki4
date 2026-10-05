@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2B%20x64-informational?style=flat-square)](https://github.com/TianQuanDiWen/MaNikki4)
 [![Framework](https://img.shields.io/badge/Powered%20by-MaaFramework-blueviolet?style=flat-square)](https://github.com/MaaXYZ/MaaFramework)
 [![Go Version](https://img.shields.io/badge/Go-1.24%2B-00ADD8?style=flat-square&logo=go)](https://golang.org)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-blue?style=flat-square)](LICENSE)
 
 > 🎮 **基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的《闪耀暖暖》（Shining Nikki）全自动日常减负辅助工具。**  
 > 采用高性能原生 Go Agent 驱动与自维护现代化桌面端 UI，专注一键日常清理与深度制衣管理，为搭配师打造极速、稳定、低占用的自动化减负体验。
@@ -17,7 +17,7 @@
 ## 🎯 定位与免责声明
 
 * **专注日常减负**：本工具纯粹用于自动化执行游戏内重复性的日常打卡（送心、组队本、竞技场、制衣扫荡、抽卡、联盟等），不包含任何破坏游戏平衡、逆向解密或篡改游戏内存的功能。
-* **完全开源免费**：本项目为非营利开源软件，遵循 MIT 开源协议，完全免费，严禁任何形式的倒卖与商用。
+* **完全开源免费**：本项目为非营利开源软件，遵循 AGPL-3.0 开源协议，完全免费，严禁任何形式的倒卖与商用。
 * **免责声明**：本项目为第三方非官方自动化工具，与《闪耀暖暖》官方运营商及开发商（叠纸游戏 Papergames）无关。使用过程中请遵守游戏用户协议，使用风险由使用者自行评估承担。
 
 ---
@@ -152,3 +152,12 @@ MaNikki4/
 * 核心底层图像处理与自动化控制引擎由 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 强力驱动。
 * 桌面端 UI 基于 [MistEO/MXU](https://github.com/MistEO/MXU) 及其自维护定制分支 [TianQuanDiWen/MXU_tqdw](https://github.com/TianQuanDiWen/MXU_tqdw)。
 * OCR 基础模型与字典资源来自 [MaaCommonAssets](https://github.com/MaaXYZ/MaaCommonAssets)。
+
+---
+
+## 📄 开源许可证
+
+本项目采用 [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE) 许可证开源。
+
+Copyright (c) 2024-2026 TianQuanDiWen <https://github.com/TianQuanDiWen>  
+Copyright (c) 2024 MaaXYZ
