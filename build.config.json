@@ -3,7 +3,7 @@
     "defaultTarget": "win-x86_64",
     "targets": [
         {
-            "runner": "ubuntu-latest",
+            "runner": "windows-latest",
             "platform": "win",
             "arch": "x86_64"
         }

@@ -1,10 +1,14 @@
 {
     "interface_version": 2,
     "name": "MaNikki4",
-    "description": "基于 MaaFramework 的《闪耀暖暖》全自动日常减负辅助工具。\n\n【📌 项目主页】\nhttps://github.com/TianQuanDiWen/MaNikki4\n🌟 开源不易，如果觉得好用欢迎点个 Star 支持作者！\n\n【💡 问题反馈与求助】\n遇到异常或建议？欢迎前往 GitHub 提交 Issue：\nhttps://github.com/TianQuanDiWen/MaNikki4/issues\n（反馈时附带 debug/ 目录下的日志能帮助开发者更快定位修复）\n\n【📢 声明与提示】\n• 本软件完全开源免费（AGPL-3.0 协议），严禁倒卖、转售或代练收费，若付费购得请立即维权退款！\n• 仅供个人技术研究与日常操作减负，使用风险由使用者自行评估承担。",
+    "icon": "assets/icon.png",
+    "logo": "assets/logo.png",
+    "theme_color": "#FF7EA7",
+    "accent_color": "暖暖粉",
+    "description": "**✨ 《闪耀暖暖》自动化日常助手 · 基于 MaaFramework ✨**\n\n[🌸 前往 GitHub 仓库](https://github.com/TianQuanDiWen/MaNikki4) ｜ [💡 问题与建议反馈](https://github.com/TianQuanDiWen/MaNikki4/issues)\n\n_如果觉得好用，欢迎在 GitHub 点亮一颗小星星 🌟 鼓励作者！_\n\n---\n🛡️ 本软件永久免费开源（AGPL-3.0），严禁用于倒卖牟利或收费代练。", 
     "contact": "[前往 GitHub Issues 提交反馈](https://github.com/TianQuanDiWen/MaNikki4/issues)",
     "license": "AGPL-3.0",
-    "welcome": "欢迎使用 MaNikki4！\n\n【📢 免费声明】\n本项目完全开源免费（AGPL-3.0 协议），严禁任何形式的倒卖、转售或收费代练。若您通过付费途径获得，请立即退款并举报商家！\n\n【⚠️ 风险提示】\n本软件基于图像识别与模拟点击，仅供学习交流与日常减负使用，使用风险由使用者自行承担。\n\n【🌟 项目与反馈】\n项目地址：https://github.com/TianQuanDiWen/MaNikki4\n欢迎点个 Star 🌟 给予支持！使用遇到问题请在 GitHub Issues 中附带日志提交反馈。",
+    "welcome": "### 🌸 欢迎使用 MaNikki4！\n基于 **MaaFramework** 开发的《闪耀暖暖》全自动日常助手，助你轻松解放双手。\n\n> **📢 免费与开源声明**  \n> 本项目遵循 AGPL-3.0 协议**完全免费开源**，严禁任何形式的倒卖、转售或收费代练。若您通过付费途径购得，请立即维权退款并举报商家！\n\n> **⚠️ 使用提示与免责**  \n> 软件基于图像识别与模拟操作，仅供个人学习研究与日常减负使用，使用风险由使用者自行评估承担。\n\n---\n⭐ **开源不易**：如果 MaNikki4 帮您节省了日常时间，欢迎前往 [GitHub 仓库](https://github.com/TianQuanDiWen/MaNikki4) 点亮一颗 Star 给予支持！使用遇到异常请在 [Issues 反馈区](https://github.com/TianQuanDiWen/MaNikki4/issues) 附带 `debug/` 日志提交。",
     "github": "https://github.com/TianQuanDiWen/MaNikki4",
     "version": "0.1.0",
     "agent": {

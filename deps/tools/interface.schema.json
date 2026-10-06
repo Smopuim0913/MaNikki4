@@ -1111,6 +1111,21 @@
             "title": "应用图标",
             "description": "应用图标文件路径，相对于项目根目录。若不指定，则使用默认图标"
         },
+        "logo": {
+            "$ref": "#/definitions/i18nString",
+            "title": "应用Logo",
+            "description": "应用 Logo 图片路径，相对于项目根目录"
+        },
+        "theme_color": {
+            "$ref": "#/definitions/i18nString",
+            "title": "主题色",
+            "description": "项目的默认主题颜色值"
+        },
+        "accent_color": {
+            "$ref": "#/definitions/i18nString",
+            "title": "色彩名",
+            "description": "项目默认主题颜色的色彩名"
+        },
         "mirrorchyan_rid": {
             "type": "string",
             "title": "MirrorChyan 资源包标识符",

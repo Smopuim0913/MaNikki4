@@ -455,7 +455,9 @@ tools/ImageCropper/**/*.png
 
 config
 debug
+backup/
 启动调试.bat
+启动代理.bat
 
 # Agent Collaboration
 .agent/

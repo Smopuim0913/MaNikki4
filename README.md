@@ -1,16 +1,36 @@
+<!-- markdownlint-disable MD033 MD041 -->
+<p align="center">
+  <img alt="LOGO" src="assets/logo.png" width="256" height="256" />
+</p>
+<div align="center">
+
 # MaNikki4
 
-[![Status](https://img.shields.io/badge/Status-In%20Development-orange?style=flat-square)](https://github.com/TianQuanDiWen/MaNikki4)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2B%20x64-informational?style=flat-square)](https://github.com/TianQuanDiWen/MaNikki4)
-[![Framework](https://img.shields.io/badge/Powered%20by-MaaFramework-blueviolet?style=flat-square)](https://github.com/MaaXYZ/MaaFramework)
-[![Go Version](https://img.shields.io/badge/Go-1.24%2B-00ADD8?style=flat-square&logo=go)](https://golang.org)
-[![License](https://img.shields.io/badge/License-AGPL--3.0-blue?style=flat-square)](LICENSE)
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable-next-line MD036 -->
+_✨ 基于 MaaFramework 的《闪耀暖暖》全自动日常减负辅助工具 ✨_
+<!-- prettier-ignore-end -->
 
-> 🎮 **基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的《闪耀暖暖》（Shining Nikki）全自动日常减负辅助工具。**  
-> 采用高性能原生 Go Agent 驱动与自维护现代化桌面端 UI，专注一键日常清理与深度制衣管理，为搭配师打造极速、稳定、低占用的自动化减负体验。
+</div>
+
+<p align="center">
+  <img alt="Go" src="https://img.shields.io/badge/Go-1.24%2B-00ADD8?logo=go">
+  <img alt="platform" src="https://img.shields.io/badge/platform-Windows%2010%2B%20x64-informational">
+  <a href="https://github.com/MaaXYZ/MaaFramework" target="_blank"><img alt="framework" src="https://img.shields.io/badge/Powered%20by-MaaFramework-blueviolet"></a>
+  <br>
+  <a href="LICENSE"><img alt="license" src="https://img.shields.io/github/license/TianQuanDiWen/MaNikki4?color=blue"></a>
+  <img alt="activity" src="https://img.shields.io/github/commit-activity/m/TianQuanDiWen/MaNikki4?color=%23ff69b4">
+  <a href="https://github.com/TianQuanDiWen/MaNikki4/stargazers"><img alt="stars" src="https://img.shields.io/github/stars/TianQuanDiWen/MaNikki4?style=social"></a>
+</p>
+
+## 简介
+
+**MaNikki4** 是基于 **[MaaFramework](https://github.com/MaaXYZ/MaaFramework)** 深度定制的《闪耀暖暖》（Shining Nikki）全自动日常减负辅助工具。
+
+采用纯 Go 原生常驻 Agent 驱动与自维护现代化桌面端 UI（[MXU](https://github.com/TianQuanDiWen/MXU_tqdw)），专注一键清理繁琐日常打卡与深度制衣管理，为搭配师打造极速、稳定、低占用的自动化减负体验。
 
 > [!NOTE]
-> 🚧 **开发状态提示**：本项目当前处于积极开发与迭代维护中。目前主要面向开发者与技术爱好者提供源码构建与本地运行支持，后续将陆续发布开箱即用的预编译版本。
+> 🚧 **开发状态提示**：本项目当前处于积极开发与迭代维护中。
 
 ---
 
