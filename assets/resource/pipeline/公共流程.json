@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791402899930,
+            "lastSyncTime": 1791403515174,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\公共流程.json",
             "savedViewport": {
-                "x": -5247,
-                "y": 146,
-                "zoom": 0.8
+                "x": -7893,
+                "y": 11,
+                "zoom": 1.17
             },
             "filename": "公共流程",
             "version": "v2.0.7"
@@ -21,7 +21,7 @@
             "[JumpBack]主菜单_返回",
             "[JumpBack]主菜单_点击取消",
             "[JumpBack]主菜单_断网",
-            "主菜单_检查开始",
+            "主菜单_打开个人简介",
             "主菜单_确认个人简介"
         ],
         "$__mpe_code": {
@@ -62,33 +62,40 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 7664,
-                "y": 299
+                "x": 7365,
+                "y": 307
             }
         }
     },
-    "主菜单_检查开始": {
+    "主菜单_断网": {
         "recognition": {
-            "type": "OCR",
+            "type": "Custom",
             "param": {
+                "custom_recognition": "MatchRowButton",
+                "custom_recognition_param": {
+                    "button": "重试",
+                    "keyword": "网络已断开|",
+                    "y_tolerance": 400
+                },
                 "roi": [
-                    302,
-                    1112,
-                    133,
-                    110
-                ],
-                "expected": [
-                    "开始"
+                    117,
+                    504,
+                    501,
+                    274
                 ]
             }
         },
-        "next": [
-            "主菜单_打开个人简介"
-        ],
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1000,
+        "focus": {
+            "Node.Action.Succeeded": "⚠检测到网络断开弹窗，尝试重连"
+        },
         "$__mpe_code": {
             "position": {
-                "x": 7346,
-                "y": 312
+                "x": 7356,
+                "y": -177
             }
         }
     },
@@ -218,38 +225,6 @@
             "position": {
                 "x": 0,
                 "y": 0
-            }
-        }
-    },
-    "主菜单_断网": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchRowButton",
-                "custom_recognition_param": {
-                    "button": "重试",
-                    "keyword": "网络已断开|",
-                    "y_tolerance": 400
-                },
-                "roi": [
-                    117,
-                    504,
-                    501,
-                    274
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 1000,
-        "focus": {
-            "Node.Action.Succeeded": "⚠检测到网络断开弹窗，尝试重连"
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 7356,
-                "y": -177
             }
         }
     }
