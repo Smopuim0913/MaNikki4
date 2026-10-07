@@ -5,7 +5,7 @@
     "logo": "assets/logo.png",
     "theme_color": "#FF7EA7",
     "accent_color": "暖暖粉",
-    "description": "**✨ 《闪耀暖暖》自动化日常助手 · 基于 MaaFramework ✨**\n\n[🌸 前往 GitHub 仓库](https://github.com/TianQuanDiWen/MaNikki4) ｜ [💡 问题与建议反馈](https://github.com/TianQuanDiWen/MaNikki4/issues)\n\n_如果觉得好用，欢迎在 GitHub 点亮一颗小星星 🌟 鼓励作者！_\n\n---\n🛡️ 本软件永久免费开源（AGPL-3.0），严禁用于倒卖牟利或收费代练。", 
+    "description": "**✨ 《闪耀暖暖》自动化日常助手 · 基于 MaaFramework ✨**\n\n[🌸 前往 GitHub 仓库](https://github.com/TianQuanDiWen/MaNikki4) ｜ [💡 问题与建议反馈](https://github.com/TianQuanDiWen/MaNikki4/issues)\n\n_如果觉得好用，欢迎在 GitHub 点亮一颗小星星 🌟 鼓励作者！_\n\n---\n🛡️ 本软件永久免费开源（AGPL-3.0），严禁用于倒卖牟利或收费代练。",
     "contact": "[前往 GitHub Issues 提交反馈](https://github.com/TianQuanDiWen/MaNikki4/issues)",
     "license": "AGPL-3.0",
     "welcome": "### 🌸 欢迎使用 MaNikki4！\n基于 **MaaFramework** 开发的《闪耀暖暖》全自动日常助手，助你轻松解放双手。\n\n> **📢 免费与开源声明**  \n> 本项目遵循 AGPL-3.0 协议**完全免费开源**，严禁任何形式的倒卖、转售或收费代练。若您通过付费途径购得，请立即维权退款并举报商家！\n\n> **⚠️ 使用提示与免责**  \n> 软件基于图像识别与模拟操作，仅供个人学习研究与日常减负使用，使用风险由使用者自行评估承担。\n\n---\n⭐ **开源不易**：如果 MaNikki4 帮您节省了日常时间，欢迎前往 [GitHub 仓库](https://github.com/TianQuanDiWen/MaNikki4) 点亮一颗 Star 给予支持！使用遇到异常请在 [Issues 反馈区](https://github.com/TianQuanDiWen/MaNikki4/issues) 附带 `debug/` 日志提交。",
@@ -32,7 +32,8 @@
             ".."
         ],
         "option": [
-            "MuMuConfig"
+            "MuMuConfig",
+            "ServerOption"
         ]
     },
     "controller": [
@@ -46,6 +47,16 @@
     "resource": [
         {
             "name": "官服",
+            "label": "简中游戏界面",
+            "description": "⚠️ 请在游戏内设置简中：此项切换的是《闪耀暖暖》**游戏内**的界面语言，不是本软件自己的显示语言。请在游戏内「设置 → 语言」里选 **简体中文** 后使用本资源包。\n\n资源包决定加载哪套识别素材与流程脚本，与「拉起哪个客户端」无关。当前包内的 215 条 OCR 文案（如「开始」「领取」「前往」「主界面」）均为简体中文，游戏界面不是简体时文字会全部识别不到。\n\n资源包只负责「界面语言」这一维，不影响分享逻辑：分享目标由「游戏区服」选项联动决定，LINE 与 Instagram 是拉丁品牌名，简繁界面下完全一致。",
+            "path": [
+                "./resource"
+            ]
+        },
+        {
+            "name": "繁中游戏界面",
+            "label": "繁中游戏界面 (暂未适配敬请期待)",
+            "description": "占位条目：繁体游戏界面尚未适配，暂未提供繁体文案资源。当前它与「简中游戏界面」完全等价（加载同一份简体资源），游戏内若设为繁体界面，215 条简体 OCR 文案将全部识别不到。后续版本计划通过独立的繁体覆盖包支持，敬请期待。",
             "path": [
                 "./resource"
             ]
@@ -57,7 +68,8 @@
             "label": "🎮 启动模拟器与游戏",
             "entry": "登陆游戏",
             "option": [
-                "MuMuConfig"
+                "MuMuConfig",
+                "ServerOption"
             ],
             "description": "启动 MuMu 模拟器并拉起闪耀暖暖应用",
             "default_check": true
@@ -272,6 +284,22 @@
             ],
             "default_case": "Yes"
         },
+        "ServerOption": {
+            "type": "select",
+            "label": "游戏区服",
+            "description": "可选择国服官服（暂不支持渠道服）或台服（同时支持闪暖台服官网直下版与 Google Play 版）。台服因繁体中文适配需额外工作量，暂不支持繁中介面，需在游戏内设置为简体界面并使用「暖调回忆」主题。\n\n分享目标APP 下拉框会列出全部可用 APP；所选 APP 不属于当前区服时运行时会自动改用本服默认分享项，无需手动改选。",
+            "cases": [
+                {
+                    "name": "CN",
+                    "label": "国服"
+                },
+                {
+                    "name": "TW",
+                    "label": "台服"
+                }
+            ],
+            "default_case": "CN"
+        },
         "MuMuConfig": {
             "type": "input",
             "label": "MuMu模拟器路径",
@@ -353,16 +381,20 @@
         "ShareAppOption": {
             "type": "select",
             "label": "分享目标APP",
-            "description": "每日分享拿粉钻时调起的社交平台，需要自行在模拟器上安装对应app",
+            "description": "选择每日分享调起的社交平台，需自行在模拟器内安装对应 APP。\n\n• 下拉框列出全部可用 APP（国服 QQ / 微信 / 微博 / 小红书，台服 LINE / Instagram）；模拟器里没装的会标「(未安装)」，选了带标记的会在开始任务前中止并提示\n• 所选 APP 不属于当前区服时无需手动改选，运行时会自动改用本服默认分享项\n• 台服的 LINE / Instagram 安装包需自行准备，可从 APKPure（需梯子）或台服 Q 群的群文件获取",
             "cases": [
                 {
                     "name": "QQ",
                     "label": "QQ",
                     "pipeline_override": {
-                        "分享_点击分享": {
-                            "next": [
-                                "抽阁_分享QQ"
-                            ]
+                        "分享_目标应用": {
+                            "recognition": {
+                                "param": {
+                                    "custom_recognition_param": {
+                                        "app": "QQ"
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -370,10 +402,14 @@
                     "name": "WeChat",
                     "label": "微信",
                     "pipeline_override": {
-                        "分享_点击分享": {
-                            "next": [
-                                "抽阁_分享微信"
-                            ]
+                        "分享_目标应用": {
+                            "recognition": {
+                                "param": {
+                                    "custom_recognition_param": {
+                                        "app": "WeChat"
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -381,10 +417,14 @@
                     "name": "Weibo",
                     "label": "微博",
                     "pipeline_override": {
-                        "分享_点击分享": {
-                            "next": [
-                                "抽阁_分享微博"
-                            ]
+                        "分享_目标应用": {
+                            "recognition": {
+                                "param": {
+                                    "custom_recognition_param": {
+                                        "app": "Weibo"
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -392,10 +432,44 @@
                     "name": "Xiaohongshu",
                     "label": "小红书",
                     "pipeline_override": {
-                        "分享_点击分享": {
-                            "next": [
-                                "抽阁_分享小红书"
-                            ]
+                        "分享_目标应用": {
+                            "recognition": {
+                                "param": {
+                                    "custom_recognition_param": {
+                                        "app": "Xiaohongshu"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "LINE",
+                    "label": "LINE",
+                    "pipeline_override": {
+                        "分享_目标应用": {
+                            "recognition": {
+                                "param": {
+                                    "custom_recognition_param": {
+                                        "app": "LINE"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Instagram",
+                    "label": "Instagram",
+                    "pipeline_override": {
+                        "分享_目标应用": {
+                            "recognition": {
+                                "param": {
+                                    "custom_recognition_param": {
+                                        "app": "Instagram"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -528,7 +602,6 @@
                     "name": "主线制衣",
                     "enabled": true
                 },
-                
                 {
                     "name": "任务",
                     "enabled": true

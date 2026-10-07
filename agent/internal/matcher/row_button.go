@@ -156,4 +156,3 @@ func FindRowButtonMatch(kwItems, btnItems []TextItem, yTolerance int) (matchedBo
 	}
 	return maa.Rect{}, "", "", 0, false
 }
-

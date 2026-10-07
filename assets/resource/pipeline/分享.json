@@ -58,6 +58,25 @@
             }
         }
     },
+    "分享_强制拉回游戏": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "StartGameApp"
+            }
+        },
+        "post_wait_freezes": 1500,
+        "next": [
+            "抽阁_分享退出",
+            "分享_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8544,
+                "y": -420
+            }
+        }
+    },
     "分享_点击主菜单": {
         "recognition": {
             "type": "OCR",
@@ -108,7 +127,7 @@
         },
         "post_wait_freezes": 200,
         "next": [
-            "抽阁_分享QQ"
+            "分享_目标应用"
         ],
         "$__mpe_code": {
             "position": {
@@ -172,6 +191,31 @@
             }
         }
     },
+    "分享_目标应用": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "ShareTarget",
+                "custom_recognition_param": {
+                    "app": "QQ"
+                },
+                "roi": [
+                    26,
+                    1163,
+                    507,
+                    99
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "timeout": 3000,
+        "next": [
+            "分享_中继"
+        ]
+    },
     "分享_确认在主菜单": {
         "recognition": {
             "type": "OCR",
@@ -217,150 +261,6 @@
             "position": {
                 "x": 6047,
                 "y": -123
-            }
-        }
-    },
-    "抽阁_分享QQ": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    26,
-                    1163,
-                    507,
-                    99
-                ],
-                "expected": [
-                    "小红书"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [
-                    -72,
-                    3,
-                    -27,
-                    -4
-                ]
-            }
-        },
-        "post_wait_freezes": 500,
-        "timeout": 3000,
-        "next": [
-            "分享_中继"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7436,
-                "y": -456
-            }
-        }
-    },
-    "抽阁_分享小红书": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    26,
-                    1163,
-                    507,
-                    99
-                ],
-                "expected": [
-                    "小红书"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 500,
-        "timeout": 3000,
-        "next": [
-            "分享_中继"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7430,
-                "y": -51
-            }
-        }
-    },
-    "抽阁_分享微信": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    26,
-                    1163,
-                    507,
-                    99
-                ],
-                "expected": [
-                    "小红书"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [
-                    -327,
-                    2,
-                    -40,
-                    0
-                ]
-            }
-        },
-        "post_wait_freezes": 500,
-        "timeout": 3000,
-        "next": [
-            "分享_中继"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7437,
-                "y": -843
-            }
-        }
-    },
-    "抽阁_分享微博": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    26,
-                    1163,
-                    507,
-                    99
-                ],
-                "expected": [
-                    "小红书"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target_offset": [
-                    105,
-                    0,
-                    -34,
-                    -1
-                ]
-            }
-        },
-        "post_wait_freezes": 500,
-        "timeout": 3000,
-        "next": [
-            "分享_中继"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7428,
-                "y": 289
             }
         }
     },
@@ -439,25 +339,6 @@
             "position": {
                 "x": 8189,
                 "y": 213
-            }
-        }
-    },
-    "分享_强制拉回游戏": {
-        "action": {
-            "type": "StartApp",
-            "param": {
-                "package": "com.papegames.nn4.cn"
-            }
-        },
-        "post_wait_freezes": 1500,
-        "next": [
-            "抽阁_分享退出",
-            "分享_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8196,
-                "y": -299
             }
         }
     }

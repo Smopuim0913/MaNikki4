@@ -36,6 +36,93 @@ func TestStripJSONComments(t *testing.T) {
 	}
 }
 
+func TestPickPackageName(t *testing.T) {
+	bothInstalled := []string{
+		"com.android.shell",
+		"com.papegames.nn4.cn",
+		"com.shining.nikki4.tw",
+	}
+	twOnly := []string{"com.android.shell", "com.shining.nikki4.tw"}
+	twGooglePlay := []string{"com.papegames.nn4.tw"}
+	channelOnly := []string{"com.papegames.nn4.mi"}
+	empty := []string{}
+
+	cases := []struct {
+		name     string
+		install  []string
+		prefer   string
+		expected string
+	}{
+		{"双区服共存未指定时默认国服", bothInstalled, "", "com.papegames.nn4.cn"},
+		{"双区服共存指定台服", bothInstalled, "TW", "com.shining.nikki4.tw"},
+		{"双区服共存指定国服", bothInstalled, "CN", "com.papegames.nn4.cn"},
+		{"仅台服官网版且未指定", twOnly, "", "com.shining.nikki4.tw"},
+		{"台服 Google Play 版", twGooglePlay, "TW", "com.papegames.nn4.tw"},
+		{"渠道服回退启发式", channelOnly, "", "com.papegames.nn4.mi"},
+		{"指定区服未安装时回退到已安装客户端", twOnly, "CN", "com.shining.nikki4.tw"},
+		{"空列表回退默认包名", empty, "", defaultPackageName},
+	}
+	for _, c := range cases {
+		if got := pickPackageName(c.install, c.prefer); got != c.expected {
+			t.Errorf("%s: expected %q, got %q", c.name, c.expected, got)
+		}
+	}
+}
+
+func TestInstalledServerLabels(t *testing.T) {
+	labels := installedServerLabels([]string{
+		"com.papegames.nn4.cn",
+		"com.shining.nikki4.tw",
+		"com.papegames.nn4.tw",
+	})
+	if len(labels) != 2 {
+		t.Fatalf("expected 2 deduplicated server labels, got %v", labels)
+	}
+	if labels[0] != "国服" || labels[1] != "台服" {
+		t.Errorf("unexpected labels: %v", labels)
+	}
+}
+
+func TestParseLauncherActivity(t *testing.T) {
+	output := "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false\ncom.shining.nikki4.tw/com.nikki.nn4lib.NN4PlayerActivity\n"
+	if got := parseLauncherActivity(output, "com.shining.nikki4.tw"); got != "com.nikki.nn4lib.NN4PlayerActivity" {
+		t.Errorf("expected NN4PlayerActivity, got %q", got)
+	}
+	if got := parseLauncherActivity("No activity found\n", "com.shining.nikki4.tw"); got != "" {
+		t.Errorf("expected empty on unresolved activity, got %q", got)
+	}
+	if got := parseLauncherActivity(output, "com.papegames.nn4.cn"); got != "" {
+		t.Errorf("expected empty for mismatched package, got %q", got)
+	}
+}
+
+func TestExtractServerFromJSON(t *testing.T) {
+	cases := []struct {
+		name     string
+		raw      string
+		expected string
+	}{
+		{"裸字符串取值", `{"ServerOption":"TW","MuMuConfig":{"mumu_path":"D:/x"}}`, "TW"},
+		{"对象形态取值", `{"ServerOption":{"name":"TW"}}`, "TW"},
+		{"嵌套在 option 下", `{"option":{"ServerOption":"CN"}}`, "CN"},
+		{"中文别名", `{"ServerOption":"台服"}`, "TW"},
+		{"MXU select 实际形态 caseName", `{"MuMuConfig":{"type":"input","values":{"mumu_path":""}},"ServerOption":{"type":"select","caseName":"TW"}}`, "TW"},
+		{"MXU select 默认国服", `{"ServerOption":{"type":"select","caseName":"CN"}}`, "CN"},
+		{"MXU select 中文 caseName", `{"ServerOption":{"type":"select","caseName":"台服"}}`, "TW"},
+		{"历史 switch+values 形态", `{"ServerOption":{"type":"switch","values":{"name":"TW"}}}`, "TW"},
+		{"MXU 形态 values 内为 case", `{"ServerOption":{"type":"switch","values":{"case":"CN"}}}`, "CN"},
+		{"MXU 形态 values 为裸串", `{"ServerOption":{"type":"switch","values":"TW"}}`, "TW"},
+		{"缺失区服字段", `{"MuMuConfig":{"mumu_path":"D:/x"}}`, ""},
+		{"非 JSON 输入", `D:/MuMu/MuMuNxMain.exe`, ""},
+		{"损坏 JSON", `{not json`, ""},
+	}
+	for _, c := range cases {
+		if got := extractServerFromJSON(c.raw); got != c.expected {
+			t.Errorf("%s: expected %q, got %q", c.name, c.expected, got)
+		}
+	}
+}
+
 func TestParseOtherRunningInstances(t *testing.T) {
 	// 单实例 JSON（仅 0 号机在运行）
 	singleRunning := []byte(`{

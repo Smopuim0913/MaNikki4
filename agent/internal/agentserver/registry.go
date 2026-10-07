@@ -8,6 +8,7 @@ import (
 	"github.com/TianQuanDiWen/MaNikki4/agent/internal/arena"
 	"github.com/TianQuanDiWen/MaNikki4/agent/internal/emulator"
 	"github.com/TianQuanDiWen/MaNikki4/agent/internal/matcher"
+	"github.com/TianQuanDiWen/MaNikki4/agent/internal/share"
 )
 
 // Registry 保存项目提供给 MaaFramework 的自定义识别和自定义动作。
@@ -84,6 +85,35 @@ func BuildRegistry(projectRoot string) (*Registry, error) {
 	// 注册通用行按钮关联识别器（根据 keyword 锁定同行右侧按钮，支持 | 管道符）
 	if err := registry.AddRecognition("MatchRowButton", matcher.NewMatchRowButtonRunner()); err != nil {
 		return nil, fmt.Errorf("register MatchRowButton: %w", err)
+	}
+
+	// 注册分享目标定位识别器（按 pretask 实际拉起的区服选择对应面板的取点策略）
+	if err := registry.AddRecognition("ShareTarget", share.NewShareTargetRunner(projectRoot)); err != nil {
+		return nil, fmt.Errorf("register ShareTarget: %w", err)
+	}
+
+	// 注册「拉回游戏」自定义动作：包名取自 pretask 记录的实际客户端，避免写死国服包名
+	if err := registry.AddAction("StartGameApp", maa.CustomActionFunc(func(ctx *maa.Context, arg *maa.CustomActionArg) bool {
+		state := emulator.LoadRuntimeState(projectRoot)
+		fmt.Printf("[Agent] 拉回游戏客户端: %s (%s)\n", state.Server, state.Package)
+		box := maa.Rect{}
+		var detail *maa.RecognitionDetail
+		if arg != nil {
+			box = arg.Box
+			detail = arg.RecognitionDetail
+		}
+		if _, err := ctx.RunActionDirect(
+			maa.ActionTypeStartApp,
+			&maa.StartAppParam{Package: state.Package},
+			box,
+			detail,
+		); err != nil {
+			fmt.Printf("[Agent] 拉起 %s 失败: %v\n", state.Package, err)
+			return false
+		}
+		return true
+	})); err != nil {
+		return nil, fmt.Errorf("register StartGameApp: %w", err)
 	}
 
 	// 注册退出模拟器自定义动作

@@ -12,12 +12,29 @@ import (
 	"time"
 
 	"github.com/TianQuanDiWen/MaNikki4/agent/internal/runtimepath"
+	"github.com/TianQuanDiWen/MaNikki4/agent/internal/share"
 )
 
 const (
 	defaultPackageName = "com.papegames.nn4.cn"
+	defaultActivity    = "com.nikki.nn4lib.NN4PlayerActivity"
 	defaultADBAddress  = "127.0.0.1:16384"
 )
+
+// serverDef 描述一个区服及其发行渠道包名（按探测优先级排列）。
+type serverDef struct {
+	ID       string
+	Label    string
+	Packages []string
+}
+
+// knownServers 列出已知区服。台服存在两个发行渠道：
+//   - com.shining.nikki4.tw：台服官网直下版（单 APK，大陆玩家主要渠道）
+//   - com.papegames.nn4.tw：Google Play 版（主包 + OBB，需谷歌三件套）
+var knownServers = []serverDef{
+	{ID: "CN", Label: "国服", Packages: []string{"com.papegames.nn4.cn"}},
+	{ID: "TW", Label: "台服", Packages: []string{"com.shining.nikki4.tw", "com.papegames.nn4.tw"}},
+}
 
 var knownExecutables = []string{
 	"MuMuNxMain.exe",
@@ -47,13 +64,21 @@ func Run(args []string) error {
 	}
 
 	// 2. 解析 MXU 传入的 option 参数
-	var inputPath string
+	var inputPath, inputServer string
 	remaining := flags.Args()
 	if len(remaining) > 0 {
 		inputPath = extractMuMuPathFromJSON(remaining[len(remaining)-1])
+		inputServer = extractServerFromJSON(remaining[len(remaining)-1])
 	}
 	if inputPath == "" {
 		inputPath = cfgMuMuPath
+	}
+	// pretask 参数缺失时回退到 MXU 已保存的配置（兼容不同版本 Client 的序列化差异）
+	if inputServer == "" {
+		inputServer = loadConfiguredServer(paths.Root)
+	}
+	if inputServer == "" && len(remaining) > 0 {
+		fmt.Printf("[Emulator] 未解析到区服选项，改用自动探测。原始 option 参数: %s\n", remaining[len(remaining)-1])
 	}
 
 	// 3. 定位 MuMu 路径（显式输入 -> 正在运行 -> 注册表关联 -> 默认目录 -> 置顶弹窗）
@@ -84,11 +109,74 @@ func Run(args []string) error {
 	}
 
 	// 7. 拉起闪耀暖暖并确保其运行就绪
-	if err := launchGameApp(mumuPath, adbExe, adbAddress, vmIndex); err != nil {
+	pkg, err := launchGameApp(mumuPath, adbExe, adbAddress, vmIndex, inputServer)
+	if err != nil {
 		return fmt.Errorf("拉起游戏应用失败: %w", err)
 	}
 
+	// 8. 提前校验分享任务的目标 APP：未安装直接中止，省得整轮跑完才发现分享不出去
+	installed := ListInstalledPackages(adbExe, adbAddress)
+	serverID := ServerIDOfPackage(pkg)
+	if err := checkShareAppSelection(paths.Root, serverID, installed); err != nil {
+		return err
+	}
+
+	// 9. 把实际拉起的区服、包名与已安装的分享目标共享给运行期 Agent（分享逻辑据此联动）
+	shareApps := installedShareApps(installed)
+	if err := SaveRuntimeState(paths.Root, serverID, pkg, shareApps); err != nil {
+		fmt.Printf("[Emulator] 警告: 写入运行时区服状态失败: %v\n", err)
+	} else {
+		fmt.Printf("[Emulator] 区服状态已记录: %s (%s)\n", serverID, pkg)
+		if len(shareApps) > 0 {
+			fmt.Printf("[Emulator] 模拟器内已安装的分享目标: %s\n", strings.Join(displayShareApps(shareApps), "、"))
+		}
+	}
+
 	fmt.Println("[Emulator] 启动准备完成，无缝移交 Controller")
+	return nil
+}
+
+// installedShareApps 把设备上的包名列表折算成已安装的分享目标 APP 名称。
+func installedShareApps(installed []string) []string {
+	flags := share.DetectInstalled(installed)
+	apps := make([]string, 0, len(share.Apps()))
+	for _, app := range share.Apps() {
+		if flags[app] {
+			apps = append(apps, app)
+		}
+	}
+	return apps
+}
+
+func displayShareApps(apps []string) []string {
+	out := make([]string, 0, len(apps))
+	for _, app := range apps {
+		out = append(out, share.DisplayName(app))
+	}
+	return out
+}
+
+// checkShareAppSelection 在任务开始前校验「分享」任务所选目标是否真的可用。
+// 勾选了分享却选了一个模拟器里没装的 APP 时直接中止，避免整轮跑完才发现分享不出去。
+func checkShareAppSelection(projectRoot, serverID string, installed []string) error {
+	selected, found := share.SelectedApp(projectRoot)
+	if !found || selected == "" {
+		return nil
+	}
+	display := share.DisplayName(selected)
+	if !share.DetectInstalled(installed)[selected] {
+		pkg, _ := share.PackageName(selected)
+		installedApps := displayShareApps(installedShareApps(installed))
+		suggestion := "模拟器内当前没有任何可用的分享目标，请先安装一个（QQ / 微信 / 微博 / 小红书 / LINE / Instagram）"
+		if len(installedApps) > 0 {
+			suggestion = "可改为 " + strings.Join(installedApps, "、")
+		}
+		return fmt.Errorf(
+			"「分享」任务选择的 %s 尚未在模拟器内安装（包名 %s）。\n请在模拟器中安装该 APP，或在「分享」任务里把「分享目标APP」%s 后再开始",
+			display, pkg, suggestion)
+	}
+	// 所选 APP 不属于当前区服面板时不在此中止：下拉框始终列出全部 APP，
+	// 运行期 ShareTarget 识别器会依据运行时区服状态自动改用本服可用项（见 share/target.go）。
 	return nil
 }
 
@@ -108,6 +196,62 @@ func extractMuMuPathFromJSON(rawJSON string) string {
 		if val, ok := sub["mumu_path"].(string); ok && strings.TrimSpace(val) != "" {
 			return strings.TrimSpace(val)
 		}
+	}
+	return ""
+}
+
+// extractServerFromJSON 从 MXU 传入的 JSON 字符串中提取区服选项（ServerOption）。
+// 不同版本 Client 的取值形态可能是裸字符串、{"name": "TW"} 或嵌套在 option 下，这里统一兼容。
+func extractServerFromJSON(rawJSON string) string {
+	if !strings.HasPrefix(strings.TrimSpace(rawJSON), "{") {
+		return ""
+	}
+	var data map[string]any
+	if err := json.Unmarshal([]byte(rawJSON), &data); err != nil {
+		return ""
+	}
+	if server := normalizeServerValue(data["ServerOption"]); server != "" {
+		return server
+	}
+	if sub, ok := data["option"].(map[string]any); ok {
+		return normalizeServerValue(sub["ServerOption"])
+	}
+	return ""
+}
+
+// normalizeServerValue 把任意形态的区服取值归一化为内部 ID（CN / TW）。
+// MXU 对 select 选项的实际序列化为 {选项名: {"type": "select", "caseName": "TW"}}，
+// 对 input 为 {"type": "input", "values": {...}}，故需同时兼容 caseName 与递归下探 values。
+func normalizeServerValue(value any) string {
+	return normalizeServerValueDepth(value, 0)
+}
+
+func normalizeServerValueDepth(value any, depth int) string {
+	if depth > 4 {
+		return ""
+	}
+	switch typed := value.(type) {
+	case string:
+		return normalizeServerToken(typed)
+	case map[string]any:
+		for _, key := range []string{"caseName", "name", "value", "case", "selected", "id", "values"} {
+			if nested, ok := typed[key]; ok {
+				if server := normalizeServerValueDepth(nested, depth+1); server != "" {
+					return server
+				}
+			}
+		}
+	}
+	return ""
+}
+
+// normalizeServerToken 识别常见区服别名，无法识别时返回空串。
+func normalizeServerToken(token string) string {
+	switch strings.ToUpper(strings.TrimSpace(token)) {
+	case "TW", "TAIWAN", "ZH_TW", "CN_TW", "台服", "台灣", "台湾", "台港澳":
+		return "TW"
+	case "CN", "MAINLAND", "ZH_CN", "国服", "官服", "大陆":
+		return "CN"
 	}
 	return ""
 }
@@ -340,16 +484,128 @@ func isEmulatorReady(adbExe, adbAddress string) bool {
 	return err == nil && strings.TrimSpace(string(bootOut)) == "1"
 }
 
-func detectPackageName(adbExe, adbAddress string) string {
-	if out, err := exec.Command(adbExe, "-s", adbAddress, "shell", "pm", "list", "packages").Output(); err == nil {
-		for _, line := range strings.Split(string(out), "\n") {
-			line = strings.TrimPrefix(strings.TrimSpace(line), "package:")
-			if strings.Contains(line, "papegames") || strings.Contains(line, "nn4") {
-				return line
+// IsDeviceOnline 判断指定地址上的设备是否已通过 adb 连接（不要求系统完全启动）。
+func IsDeviceOnline(adbExe, adbAddress string) bool {
+	out, err := exec.Command(adbExe, "-s", adbAddress, "get-state").CombinedOutput()
+	return err == nil && strings.TrimSpace(string(out)) == "device"
+}
+
+// ProbeADBEnv 返回可用于探测设备状态的 adb 可执行文件与设备地址。
+// 与 pretask 的区别：不启动模拟器、不弹窗，供界面启动前的轻量探测使用。
+func ProbeADBEnv(projectRoot string) (adbExe, adbAddress string, ok bool) {
+	paths, err := runtimepath.Resolve(projectRoot)
+	if err != nil {
+		return "", "", false
+	}
+	cfgADBAddress, cfgADBPath, cfgMuMuPath, _ := loadConfig(paths.Root)
+	adbAddress = defaultADBAddress
+	if cfgADBAddress != "" {
+		adbAddress = cfgADBAddress
+	}
+	mumuPath := cfgMuMuPath
+	if mumuPath == "" {
+		if detected, _, err := resolveMuMuPath("", false); err == nil {
+			mumuPath = detected
+		}
+	}
+	adbExe = resolveADBPath(paths.Lib, mumuPath, cfgADBPath)
+	if adbExe == "" {
+		return "", "", false
+	}
+	return adbExe, adbAddress, true
+}
+
+// ProjectRootOf 依据运行路径解析项目根目录，供外部命令复用。
+func ProjectRootOf(root string) (string, error) {
+	paths, err := runtimepath.Resolve(root)
+	if err != nil {
+		return "", err
+	}
+	return paths.Root, nil
+}
+
+// ListInstalledPackages 读取设备上已安装的所有包名。
+func ListInstalledPackages(adbExe, adbAddress string) []string {
+	out, err := exec.Command(adbExe, "-s", adbAddress, "shell", "pm", "list", "packages").Output()
+	if err != nil {
+		return nil
+	}
+	var pkgs []string
+	for _, line := range strings.Split(string(out), "\n") {
+		line = strings.TrimSpace(strings.TrimPrefix(strings.TrimSpace(line), "package:"))
+		if line != "" {
+			pkgs = append(pkgs, line)
+		}
+	}
+	return pkgs
+}
+
+// pickPackageName 在已安装列表中挑选本次要拉起的游戏包名。
+// preferredServer 非空时只在该区服的候选包名中挑选，否则按 knownServers 顺序探测。
+func pickPackageName(installed []string, preferredServer string) string {
+	installedSet := make(map[string]struct{}, len(installed))
+	for _, pkg := range installed {
+		installedSet[pkg] = struct{}{}
+	}
+
+	for _, server := range knownServers {
+		if preferredServer != "" && !strings.EqualFold(server.ID, preferredServer) {
+			continue
+		}
+		for _, pkg := range server.Packages {
+			if _, ok := installedSet[pkg]; ok {
+				return pkg
 			}
 		}
 	}
+
+	// 兜底：渠道服等变体（如 com.papegames.nn4.mi），沿用历史启发式规则
+	for _, pkg := range installed {
+		if strings.Contains(pkg, "nn4") || strings.Contains(pkg, "nikki4") {
+			return pkg
+		}
+	}
 	return defaultPackageName
+}
+
+// serverLabel 返回包名对应的区服名称，未知渠道返回"未知渠道"。
+func serverLabel(pkg string) string {
+	for _, server := range knownServers {
+		for _, candidate := range server.Packages {
+			if candidate == pkg {
+				return server.Label
+			}
+		}
+	}
+	return "未知渠道"
+}
+
+// serverLabelByID 返回区服 ID 对应的名称，未知 ID 返回空串。
+func serverLabelByID(id string) string {
+	for _, server := range knownServers {
+		if strings.EqualFold(server.ID, id) {
+			return server.Label
+		}
+	}
+	return ""
+}
+
+// installedServerLabels 返回设备上已安装的全部区服名称（用于双区服共存时提示用户）。
+func installedServerLabels(installed []string) []string {
+	installedSet := make(map[string]struct{}, len(installed))
+	for _, pkg := range installed {
+		installedSet[pkg] = struct{}{}
+	}
+	var labels []string
+	for _, server := range knownServers {
+		for _, pkg := range server.Packages {
+			if _, ok := installedSet[pkg]; ok {
+				labels = append(labels, server.Label)
+				break
+			}
+		}
+	}
+	return labels
 }
 
 func isAppRunning(adbExe, adbAddress, pkg string) bool {
@@ -357,31 +613,94 @@ func isAppRunning(adbExe, adbAddress, pkg string) bool {
 	return err == nil && strings.TrimSpace(string(out)) != ""
 }
 
-// launchOrFocusApp 统一启动或将应用激活至前台（mumu-cli -> am start -> monkey 三级降级）
+// startActivity 通过 am start 拉起指定包名的 Activity。
+func startActivity(adbExe, adbAddress, pkg, activity string) error {
+	return exec.Command(adbExe, "-s", adbAddress, "shell", "am", "start", "-n", pkg+"/"+activity).Run()
+}
+
+// resolveLauncherActivity 运行时查询指定包名的真实 LAUNCHER Activity，查询失败返回空串。
+func resolveLauncherActivity(adbExe, adbAddress, pkg string) string {
+	out, err := exec.Command(adbExe, "-s", adbAddress, "shell", "cmd", "package", "resolve-activity",
+		"--brief", "-c", "android.intent.category.LAUNCHER", pkg).Output()
+	if err != nil {
+		return ""
+	}
+	return parseLauncherActivity(string(out), pkg)
+}
+
+// parseLauncherActivity 从 resolve-activity --brief 的输出中解析出 Activity 类名。
+func parseLauncherActivity(output, pkg string) string {
+	for _, line := range strings.Split(output, "\n") {
+		line = strings.TrimSpace(line)
+		if !strings.HasPrefix(line, pkg+"/") {
+			continue
+		}
+		if activity := strings.TrimPrefix(line, pkg+"/"); activity != "" {
+			return activity
+		}
+	}
+	return ""
+}
+
+// waitAppRunning 轮询等待目标应用进程出现。
+func waitAppRunning(adbExe, adbAddress, pkg string, timeout time.Duration) bool {
+	deadline := time.Now().Add(timeout)
+	for {
+		if isAppRunning(adbExe, adbAddress, pkg) {
+			return true
+		}
+		if time.Now().After(deadline) {
+			return false
+		}
+		time.Sleep(500 * time.Millisecond)
+	}
+}
+
+// launchOrFocusApp 统一启动或将应用激活至前台。
+// 降级链：mumu-cli -> am start（内置 Activity）-> am start（运行时解析 Activity）-> monkey
 func launchOrFocusApp(mumuPath, adbExe, adbAddress string, vmIndex int, pkg string, allowMonkey bool) {
 	if cliExe := findMuMuCli(mumuPath); cliExe != "" {
 		cmd := exec.Command(cliExe, "control", "-v", fmt.Sprintf("%d", vmIndex), "app", "launch", "--package", pkg)
 		cmd.Dir = filepath.Dir(cliExe)
-		if err := cmd.Run(); err == nil {
+		if err := cmd.Run(); err == nil && waitAppRunning(adbExe, adbAddress, pkg, 3*time.Second) {
+			return
+		}
+		fmt.Println("[Emulator] mumu-cli 未能确认拉起应用，降级至 ADB 指令...")
+	}
+	if startActivity(adbExe, adbAddress, pkg, defaultActivity) == nil {
+		return
+	}
+	if activity := resolveLauncherActivity(adbExe, adbAddress, pkg); activity != "" && activity != defaultActivity {
+		fmt.Printf("[Emulator] 内置 Activity 失效，改用运行时解析的 %s 重试...\n", activity)
+		if startActivity(adbExe, adbAddress, pkg, activity) == nil {
 			return
 		}
 	}
-	cmd := exec.Command(adbExe, "-s", adbAddress, "shell", "am", "start", "-n", pkg+"/com.nikki.nn4lib.NN4PlayerActivity")
-	if err := cmd.Run(); err == nil || !allowMonkey {
-		return
+	if allowMonkey {
+		_ = exec.Command(adbExe, "-s", adbAddress, "shell", "monkey", "-p", pkg, "1").Run()
 	}
-	_ = exec.Command(adbExe, "-s", adbAddress, "shell", "monkey", "-p", pkg, "1").Run()
 }
 
-func launchGameApp(mumuPath, adbExe, adbAddress string, vmIndex int) error {
-	pkg := detectPackageName(adbExe, adbAddress)
-	fmt.Printf("[Emulator] 目标游戏包名: %s\n", pkg)
+// launchGameApp 拉起指定区服的游戏客户端，返回实际使用的包名。
+func launchGameApp(mumuPath, adbExe, adbAddress string, vmIndex int, preferredServer string) (string, error) {
+	installed := ListInstalledPackages(adbExe, adbAddress)
+	pkg := pickPackageName(installed, preferredServer)
+	fmt.Printf("[Emulator] 目标游戏区服: %s，包名: %s\n", serverLabel(pkg), pkg)
+
+	if labels := installedServerLabels(installed); len(labels) > 1 {
+		fmt.Printf("[Emulator] 提示: 检测到同时安装了 %s，本次使用 %s，如需切换请在区服选项中指定\n",
+			strings.Join(labels, "、"), serverLabel(pkg))
+	}
+	if wanted := serverLabelByID(preferredServer); wanted != "" && wanted != serverLabel(pkg) {
+		fmt.Printf("[Emulator] 警告: 未检测到%s客户端，实际拉起的是 %s (%s)，请检查区服选项\n",
+			wanted, serverLabel(pkg), pkg)
+	}
 
 	if isAppRunning(adbExe, adbAddress, pkg) {
 		fmt.Println("[Emulator] 检测到游戏进程已在运行，唤起至前台...")
 		launchOrFocusApp(mumuPath, adbExe, adbAddress, vmIndex, pkg, false)
 		time.Sleep(2 * time.Second)
-		return nil
+		return pkg, nil
 	}
 
 	fmt.Println("[Emulator] 正在拉起《闪耀暖暖》游戏应用...")
@@ -396,7 +715,7 @@ func launchGameApp(mumuPath, adbExe, adbAddress string, vmIndex int) error {
 		if isAppRunning(adbExe, adbAddress, pkg) {
 			fmt.Println("[Emulator] 游戏进程已确立，预留缓冲移交 Controller...")
 			time.Sleep(3 * time.Second)
-			return nil
+			return pkg, nil
 		}
 		if !retried && time.Since(startTime) >= 10*time.Second {
 			fmt.Println("[Emulator] 启动用时较长，重新尝试发送拉起指令...")
@@ -404,7 +723,7 @@ func launchGameApp(mumuPath, adbExe, adbAddress string, vmIndex int) error {
 			retried = true
 		}
 	}
-	return fmt.Errorf("等待游戏应用启动超时 (20s, 包名: %s)", pkg)
+	return "", fmt.Errorf("等待游戏应用启动超时 (20s, 包名: %s)", pkg)
 }
 
 // resolveConfigPath 统一管理配置文件优先级探测与目标目录创建
@@ -462,6 +781,27 @@ func loadConfig(projectRoot string) (string, string, string, int) {
 		return strings.TrimSpace(root.ADB.Address), strings.TrimSpace(root.ADB.ADBPath), strings.TrimSpace(mumuPath), root.ADB.Config.Extras.MuMu.Index
 	}
 	return "", "", "", 0
+}
+
+// loadConfiguredServer 从 MXU 配置文件读取已保存的区服选项，作为 pretask 参数缺失时的兜底来源。
+func loadConfiguredServer(projectRoot string) string {
+	cfgPath := resolveConfigPath(projectRoot, false)
+	if !fileExists(cfgPath) {
+		return ""
+	}
+	data, err := os.ReadFile(cfgPath)
+	if err != nil {
+		return ""
+	}
+	var root struct {
+		Option struct {
+			ServerOption any `json:"ServerOption"`
+		} `json:"option"`
+	}
+	if err := json.Unmarshal(stripJSONComments(data), &root); err != nil {
+		return ""
+	}
+	return normalizeServerValue(root.Option.ServerOption)
 }
 
 // savePathToConfig 写入或更新配置至 maa_pi_config.json
