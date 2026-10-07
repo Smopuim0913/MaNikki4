@@ -3,20 +3,21 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791403515174,
+            "lastSyncTime": 1791414513588,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\公共流程.json",
             "savedViewport": {
-                "x": -7893,
-                "y": 11,
-                "zoom": 1.17
+                "x": -5677,
+                "y": 267,
+                "zoom": 0.91
             },
             "filename": "公共流程",
             "version": "v2.0.7"
         }
     },
     "主菜单_中继节点": {
+        "post_wait_freezes": 100,
         "next": [
             "[JumpBack]主菜单_返回",
             "[JumpBack]主菜单_点击取消",
@@ -57,8 +58,10 @@
                 ]
             }
         },
+        "post_wait_freezes": 600,
         "next": [
-            "主菜单_确认个人简介"
+            "主菜单_确认个人简介",
+            "主菜单_打开个人简介"
         ],
         "$__mpe_code": {
             "position": {
