@@ -3,14 +3,14 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791366172887,
+            "lastSyncTime": 1791412823426,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\任务.json",
             "savedViewport": {
-                "x": -3818,
-                "y": 630,
-                "zoom": 0.69
+                "x": -5241,
+                "y": -91,
+                "zoom": 1.01
             },
             "filename": "任务",
             "version": "v2.0.7"
@@ -58,6 +58,39 @@
             }
         }
     },
+    "任务_充值特权": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    134,
+                    65,
+                    582,
+                    160
+                ],
+                "expected": [
+                    "充值"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "领取特权特权"
+        },
+        "next": [
+            "任务_查看特权"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6775,
+                "y": -1230
+            }
+        }
+    },
     "任务_开始": {
         "anchor": "任务入口",
         "next": [
@@ -68,6 +101,35 @@
             "position": {
                 "x": 4918,
                 "y": 366
+            }
+        }
+    },
+    "任务_查看特权": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    31,
+                    488,
+                    666,
+                    166
+                ],
+                "expected": [
+                    "查看特权"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": "",
+        "next": [
+            "任务_特权每周礼包"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7042,
+                "y": -1194
             }
         }
     },
@@ -96,6 +158,110 @@
             "position": {
                 "x": 6484,
                 "y": 188
+            }
+        }
+    },
+    "任务_每周特权已领": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    164,
+                    162,
+                    369,
+                    510
+                ],
+                "expected": [
+                    "奖励预览"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    5,
+                    32,
+                    85,
+                    69
+                ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "每周特权已领"
+        },
+        "next": [
+            "任务_每周特权返钻返回"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7622,
+                "y": -1378
+            }
+        }
+    },
+    "任务_每周特权恭喜获得": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    164,
+                    162,
+                    369,
+                    510
+                ],
+                "expected": [
+                    "恭喜获得"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    5,
+                    32,
+                    85,
+                    69
+                ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "领取每周特权成功"
+        },
+        "next": [
+            "任务_每周特权返钻返回"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7627,
+                "y": -1052
+            }
+        }
+    },
+    "任务_每周特权返钻返回": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    14,
+                    128,
+                    131
+                ],
+                "template": [
+                    "闪暖-返回箭头.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1000,
+        "$__mpe_code": {
+            "position": {
+                "x": 8016,
+                "y": -1264
             }
         }
     },
@@ -298,6 +464,36 @@
             }
         }
     },
+    "任务_特权每周礼包": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    505,
+                    94,
+                    195,
+                    203
+                ],
+                "expected": [
+                    "NIKKI"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "focus": "",
+        "next": [
+            "任务_每周特权已领",
+            "任务_每周特权恭喜获得"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7316,
+                "y": -1193
+            }
+        }
+    },
     "任务_确认在主菜单": {
         "recognition": {
             "type": "OCR",
@@ -337,7 +533,8 @@
             "[JumpBack]任务_每日返钻",
             "[JumpBack]任务_检查存在可领取",
             "[JumpBack]任务_每日签到",
-            "任务_领取总奖励"
+            "[JumpBack]任务_奖励弹窗关闭",
+            "任务_领取每日奖励"
         ],
         "$__mpe_code": {
             "position": {
@@ -362,6 +559,39 @@
             "position": {
                 "x": 7701,
                 "y": 591
+            }
+        }
+    },
+    "任务_耀星钻卡": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    369,
+                    211,
+                    335,
+                    552
+                ],
+                "expected": [
+                    "耀星钻卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": {
+            "Node.Action.Succeeded": "领取耀星钻卡"
+        },
+        "next": [
+            "任务_领取耀星钻卡"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6779,
+                "y": -884
             }
         }
     },
@@ -406,17 +636,6 @@
             }
         }
     },
-    "任务_领取总奖励": {
-        "next": [
-            "任务_领取每日奖励"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6496,
-                "y": 791
-            }
-        }
-    },
     "任务_领取每日奖励": {
         "recognition": {
             "type": "OCR",
@@ -450,45 +669,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 6870,
-                "y": 758
-            }
-        }
-    },
-    "任务_领取每日奖励点击空白": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    422,
-                    498,
-                    291,
-                    113
-                ],
-                "expected": [
-                    "今日活跃"
-                ]
-            }
-        },
-        "inverse": true,
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    288,
-                    58,
-                    131,
-                    50
-                ]
-            }
-        },
-        "next": [
-            "任务_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7215,
-                "y": 745
+                "x": 6502,
+                "y": 1126
             }
         }
     },
@@ -532,36 +714,40 @@
             }
         }
     },
-    "任务_耀星钻卡": {
-        "max_hit": 1,
+    "任务_领取每日奖励点击空白": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [
-                    369,
-                    211,
-                    335,
-                    552
+                    422,
+                    498,
+                    291,
+                    113
                 ],
                 "expected": [
-                    "耀星钻卡"
+                    "今日活跃"
                 ]
             }
         },
+        "inverse": true,
         "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "领取耀星钻卡"
+            "type": "Click",
+            "param": {
+                "target": [
+                    288,
+                    58,
+                    131,
+                    50
+                ]
+            }
         },
         "next": [
-            "任务_领取耀星钻卡"
+            "任务_结束"
         ],
         "$__mpe_code": {
             "position": {
-                "x": 6779,
-                "y": -884
+                "x": 7215,
+                "y": 745
             }
         }
     },
@@ -593,110 +779,20 @@
             }
         }
     },
-    "任务_充值特权": {
-        "max_hit": 1,
+    "任务_奖励弹窗关闭": {
         "recognition": {
             "type": "OCR",
             "param": {
                 "roi": [
-                    134,
-                    65,
-                    582,
-                    160
-                ],
-                "expected": [
-                    "充值"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
-        "focus": {
-            "Node.Action.Succeeded": "领取特权特权"
-        },
-        "next": [
-            "任务_查看特权"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 6775,
-                "y": -1230
-            }
-        }
-    },
-    "任务_查看特权": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    31,
-                    488,
-                    666,
-                    166
-                ],
-                "expected": [
-                    "查看特权"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "focus": "",
-        "next": [
-            "任务_特权每周礼包"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7042,
-                "y": -1194
-            }
-        }
-    },
-    "任务_特权每周礼包": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    505,
+                    220,
                     94,
-                    195,
-                    203
+                    302,
+                    643
                 ],
                 "expected": [
-                    "NIKKI"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "focus": "",
-        "next": [
-            "任务_每周特权已领",
-            "任务_每周特权恭喜获得"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7316,
-                "y": -1193
-            }
-        }
-    },
-    "任务_每周特权恭喜获得": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    164,
-                    162,
-                    369,
-                    510
-                ],
-                "expected": [
-                    "恭喜获得"
+                    "恭喜获得",
+                    "道具详情",
+                    "摸鱼"
                 ]
             }
         },
@@ -704,88 +800,19 @@
             "type": "Click",
             "param": {
                 "target": [
-                    5,
-                    32,
-                    85,
-                    69
+                    182,
+                    52,
+                    102,
+                    36
                 ]
             }
         },
-        "focus": {
-            "Node.Action.Succeeded": "领取每周特权成功"
-        },
-        "next": [
-            "任务_每周特权返钻返回"
-        ],
+        "repeat": 2,
+        "repeat_delay": 300,
         "$__mpe_code": {
             "position": {
-                "x": 7627,
-                "y": -1052
-            }
-        }
-    },
-    "任务_每周特权已领": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    164,
-                    162,
-                    369,
-                    510
-                ],
-                "expected": [
-                    "奖励预览"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    5,
-                    32,
-                    85,
-                    69
-                ]
-            }
-        },
-        "focus": {
-            "Node.Action.Succeeded": "每周特权已领"
-        },
-        "next": [
-            "任务_每周特权返钻返回"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7622,
-                "y": -1378
-            }
-        }
-    },
-    "任务_每周特权返钻返回": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    0,
-                    14,
-                    128,
-                    131
-                ],
-                "template": [
-                    "闪暖-返回箭头.png"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 1000,
-        "$__mpe_code": {
-            "position": {
-                "x": 8016,
-                "y": -1264
+                "x": 6492,
+                "y": 800
             }
         }
     }
