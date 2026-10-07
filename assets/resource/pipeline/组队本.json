@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790851109883,
+            "lastSyncTime": 1791402393995,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\组队本.json",
             "savedViewport": {
-                "x": -4274,
-                "y": -1346,
-                "zoom": 0.7
+                "x": -4835,
+                "y": -482,
+                "zoom": 0.78
             },
             "filename": "组队本",
-            "version": "v2.0.5"
+            "version": "v2.0.7"
         }
     },
     "$__mpe_external_公共：返回主菜单_组队本": {
@@ -44,7 +44,7 @@
                 "不落的帷幕_结束",
                 "不落的帷幕_返回",
                 "不落的帷幕_选择上演中",
-                "不落的帷幕_随机点击",
+                "不落的帷幕_确认已在",
                 "不落的帷幕_高难度",
                 "结伴_不落的帷幕",
                 "结伴_不落的帷幕次数"
@@ -65,7 +65,7 @@
                 "印象航旅_结束",
                 "印象航旅_虚渊·险",
                 "印象航旅_返回",
-                "印象航旅_随机点击",
+                "印象航旅_确认已在",
                 "印象航旅_高难度",
                 "结伴_印象航旅",
                 "结伴_印象航旅次数"
@@ -86,7 +86,7 @@
                 "时光钟表铺_点击04",
                 "时光钟表铺_结束",
                 "时光钟表铺_返回",
-                "时光钟表铺_随机点击",
+                "时光钟表铺_确认已在",
                 "结伴_时光钟表铺",
                 "结伴_时光钟表铺次数"
             ],
@@ -269,7 +269,8 @@
         },
         "post_wait_freezes": 500,
         "next": [
-            "不落的帷幕_随机点击"
+            "不落的帷幕_确认已在",
+            "不落的帷幕_选择上演中"
         ],
         "$__mpe_code": {
             "position": {
@@ -278,15 +279,29 @@
             }
         }
     },
-    "不落的帷幕_随机点击": {
+    "不落的帷幕_确认已在": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    6,
+                    1089,
+                    213,
+                    189
+                ],
+                "expected": [
+                    "剩余次数"
+                ]
+            }
+        },
         "action": {
             "type": "Click",
             "param": {
                 "target": [
-                    330,
-                    120,
-                    197,
-                    104
+                    389,
+                    61,
+                    99,
+                    28
                 ]
             }
         },
@@ -450,7 +465,23 @@
             }
         }
     },
-    "印象航旅_随机点击": {
+    "印象航旅_确认已在": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    57,
+                    72,
+                    304,
+                    107
+                ],
+                "expected": [
+                    "自我",
+                    "率性",
+                    "之旅"
+                ]
+            }
+        },
         "action": {
             "type": "Click",
             "param": {
@@ -622,7 +653,15 @@
             }
         }
     },
-    "时光钟表铺_随机点击": {
+    "时光钟表铺_确认已在": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "决胜时刻"
+                ]
+            }
+        },
         "action": {
             "type": "Click",
             "param": {
@@ -646,6 +685,41 @@
             }
         }
     },
+    "组队本_体力不足取消": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "MatchRowButton",
+                "custom_recognition_param": {
+                    "button": "取消",
+                    "keyword": "体力",
+                    "y_tolerance": 400
+                },
+                "roi": [
+                    47,
+                    225,
+                    644,
+                    539
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 1000,
+        "focus": {
+            "Node.Action.Succeeded": "组队本体力不足结束任务"
+        },
+        "next": [
+            "结伴_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 7221,
+                "y": 630
+            }
+        }
+    },
     "结伴_不落的帷幕": {
         "recognition": {
             "type": "OCR",
@@ -666,7 +740,8 @@
         },
         "post_wait_freezes": 500,
         "next": [
-            "不落的帷幕_选择上演中"
+            "不落的帷幕_选择上演中",
+            "结伴_不落的帷幕"
         ],
         "$__mpe_code": {
             "position": {
@@ -726,7 +801,8 @@
         },
         "post_wait_freezes": 500,
         "next": [
-            "印象航旅_随机点击"
+            "印象航旅_确认已在",
+            "结伴_印象航旅"
         ],
         "$__mpe_code": {
             "position": {
@@ -798,7 +874,8 @@
         },
         "post_wait_freezes": 500,
         "next": [
-            "时光钟表铺_随机点击"
+            "时光钟表铺_确认已在",
+            "结伴_时光钟表铺"
         ],
         "$__mpe_code": {
             "position": {
@@ -972,41 +1049,6 @@
             "position": {
                 "x": 6217,
                 "y": 233
-            }
-        }
-    },
-    "组队本_体力不足取消": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "MatchRowButton",
-                "custom_recognition_param": {
-                    "button": "取消",
-                    "keyword": "体力",
-                    "y_tolerance": 400
-                },
-                "roi": [
-                    47,
-                    225,
-                    644,
-                    539
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 1000,
-        "focus": {
-            "Node.Action.Succeeded": "组队本体力不足结束任务"
-        },
-        "next": [
-            "结伴_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 7221,
-                "y": 630
             }
         }
     }
