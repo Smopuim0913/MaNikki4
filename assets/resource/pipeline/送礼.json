@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791193879959,
+            "lastSyncTime": 1791362583182,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\送礼.json",
             "savedViewport": {
-                "x": -4575,
-                "y": -123,
-                "zoom": 1.13
+                "x": -4308,
+                "y": -68,
+                "zoom": 1.03
             },
             "filename": "送礼",
-            "version": "v2.0.6"
+            "version": "v2.0.7"
         }
     },
     "$__mpe_external_公共：返回主菜单_送礼": {
@@ -388,9 +388,9 @@
         "action": {
             "type": "Click"
         },
+        "post_wait_freezes": 500,
         "next": [
-            "好友_一键送心",
-            "送礼_点击好友"
+            "好友_一键送心"
         ],
         "$__mpe_code": {
             "position": {
