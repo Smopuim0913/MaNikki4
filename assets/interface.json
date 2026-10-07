@@ -178,6 +178,9 @@
             "label": "📋 任务奖励",
             "entry": "任务_开始",
             "description": "领取每日任务奖励",
+            "option": [
+                "TaskPrivilegeOption"
+            ],
             "default_check": true
         },
         {
@@ -395,6 +398,42 @@
                 }
             ],
             "default_case": "QQ"
+        },
+        "TaskPrivilegeOption": {
+            "type": "switch",
+            "label": "充值特权与耀星钻卡（测试中）",
+            "description": "开启后在领取每日返钻时，额外检测并领取耀星钻卡奖励与充值特权每周礼包；本功能处于测试中，默认关闭",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "开启",
+                    "pipeline_override": {
+                        "任务_每日返钻": {
+                            "next": [
+                                "[JumpBack]任务_钻石卡",
+                                "[JumpBack]任务_特权卡",
+                                "[JumpBack]任务_耀星钻卡",
+                                "[JumpBack]任务_充值特权",
+                                "任务_每日返钻返回"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "label": "关闭",
+                    "pipeline_override": {
+                        "任务_每日返钻": {
+                            "next": [
+                                "[JumpBack]任务_钻石卡",
+                                "[JumpBack]任务_特权卡",
+                                "任务_每日返钻返回"
+                            ]
+                        }
+                    }
+                }
+            ],
+            "default_case": "No"
         }
     },
     "preset": [
