@@ -3,17 +3,17 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1791193686656,
+            "lastSyncTime": 1791413479170,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\分享.json",
             "savedViewport": {
-                "x": -6805,
-                "y": 688,
-                "zoom": 1.13
+                "x": -6733,
+                "y": 473,
+                "zoom": 0.89
             },
             "filename": "分享",
-            "version": "v2.0.6"
+            "version": "v2.0.7"
         }
     },
     "$__mpe_external_公共：返回主菜单_分享": {
@@ -35,37 +35,13 @@
         "timeout": 3000,
         "next": [
             "抽阁_分享未安装",
-            "抽阁_分享退出"
-        ],
-        "on_error": [
-            "分享_从外部返回"
+            "抽阁_分享退出",
+            "分享_强制拉回游戏"
         ],
         "$__mpe_code": {
             "position": {
                 "x": 7774,
                 "y": -409
-            }
-        }
-    },
-    "分享_从外部返回": {
-        "action": {
-            "type": "ClickKey",
-            "param": {
-                "key": 4
-            }
-        },
-        "post_wait_freezes": 1500,
-        "timeout": 3000,
-        "next": [
-            "抽阁_分享退出"
-        ],
-        "on_error": [
-            "分享_强制拉回游戏"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8189,
-                "y": -178
             }
         }
     },
@@ -79,25 +55,6 @@
             "position": {
                 "x": 5714,
                 "y": -436
-            }
-        }
-    },
-    "分享_强制拉回游戏": {
-        "action": {
-            "type": "StartApp",
-            "param": {
-                "package": "com.papegames.nn4.cn"
-            }
-        },
-        "post_wait_freezes": 1500,
-        "next": [
-            "抽阁_分享退出",
-            "分享_结束"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": 8544,
-                "y": -420
             }
         }
     },
@@ -482,6 +439,25 @@
             "position": {
                 "x": 8189,
                 "y": 213
+            }
+        }
+    },
+    "分享_强制拉回游戏": {
+        "action": {
+            "type": "StartApp",
+            "param": {
+                "package": "com.papegames.nn4.cn"
+            }
+        },
+        "post_wait_freezes": 1500,
+        "next": [
+            "抽阁_分享退出",
+            "分享_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8196,
+                "y": -299
             }
         }
     }
