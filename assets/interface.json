@@ -109,6 +109,9 @@
             "label": "🌊 忆海心阶",
             "entry": "忆海_开始",
             "description": "完成忆海心阶挑战",
+            "option": [
+                "YihaiJingyuOption"
+            ],
             "default_check": true
         },
         {
@@ -428,6 +431,37 @@
                                 "[JumpBack]任务_钻石卡",
                                 "[JumpBack]任务_特权卡",
                                 "任务_每日返钻返回"
+                            ]
+                        }
+                    }
+                }
+            ],
+            "default_case": "No"
+        },
+        "YihaiJingyuOption": {
+            "type": "switch",
+            "label": "境遇挑战（测试中）",
+            "description": "开启后在完成忆海心阶真我之境挑战后，额外自动进行心阶境遇关卡挑战；本功能处于测试中，默认关闭",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "label": "开启",
+                    "pipeline_override": {
+                        "忆海_战斗评分": {
+                            "next": [
+                                "忆海_境遇",
+                                "忆海_结束"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "label": "关闭",
+                    "pipeline_override": {
+                        "忆海_战斗评分": {
+                            "next": [
+                                "忆海_结束"
                             ]
                         }
                     }

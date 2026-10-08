@@ -3,17 +3,374 @@
         "$__mpe_code": {
             "prefix": "",
             "coordinateMode": "absolute-v1",
-            "lastSyncTime": 1790776522852,
+            "lastSyncTime": 1791415532210,
             "isModifiedExternally": false,
             "isDeleted": false,
             "filePath": "D:\\Projects\\Go\\MaNikki4\\assets\\resource\\pipeline\\忆海心阶.json",
             "savedViewport": {
-                "x": -1678,
-                "y": 43,
-                "zoom": 0.45
+                "x": -4342,
+                "y": -461,
+                "zoom": 0.63
             },
             "filename": "忆海心阶",
-            "version": "v2.0.4"
+            "version": "v2.0.7"
+        }
+    },
+    "忆海_境遇": {
+        "next": [
+            "[JumpBack]忆海_点击境遇1",
+            "[JumpBack]忆海_点击境遇2",
+            "忆海_结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8189,
+                "y": 1631
+            }
+        }
+    },
+    "忆海_点击境遇1": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    106,
+                    642,
+                    227,
+                    189
+                ],
+                "expected": [
+                    "境遇"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "focus": "",
+        "next": [
+            "忆海_境遇评分为0",
+            "忆海_境遇结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8565,
+                "y": 1569
+            }
+        }
+    },
+    "忆海_境遇评分为0": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    84,
+                    449,
+                    194,
+                    50
+                ],
+                "expected": [
+                    "\\b0\\b"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "忆海_境遇1开始挑战"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8934,
+                "y": 1844
+            }
+        }
+    },
+    "忆海_境遇1开始挑战": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    426,
+                    833,
+                    228,
+                    113
+                ],
+                "expected": [
+                    "开始挑战"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "focus": {
+            "Node.Action.Succeeded": "执行挑战境遇"
+        },
+        "next": [
+            "忆海_确认在境遇挑战"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 9275,
+                "y": 1838
+            }
+        }
+    },
+    "忆海_境遇推荐搭配": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    572,
+                    1161,
+                    145,
+                    79
+                ],
+                "expected": [
+                    "推荐搭配"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "focus": {
+            "Node.Action.Succeeded": "忆海开始搭配"
+        },
+        "next": [
+            "忆海_境遇搭配评分不为0"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 10017,
+                "y": 1990
+            }
+        }
+    },
+    "忆海_确认在境遇挑战": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    269,
+                    22,
+                    136,
+                    46
+                ],
+                "expected": [
+                    "境遇挑战"
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "focus": "",
+        "next": [
+            "[JumpBack]忆海_境遇检查跳过",
+            "忆海_境遇推荐搭配"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 9639,
+                "y": 1838
+            }
+        }
+    },
+    "忆海_境遇检查跳过": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    52,
+                    1108,
+                    37,
+                    33
+                ],
+                "lower": [
+                    [
+                        244,
+                        115,
+                        130
+                    ]
+                ],
+                "upper": [
+                    [
+                        246,
+                        117,
+                        134
+                    ]
+                ],
+                "connected": true,
+                "count": 10
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    62,
+                    1116,
+                    19,
+                    18
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "focus": {
+            "Node.Action.Starting": "忆海-境遇打开跳过"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 10019,
+                "y": 1540
+            }
+        }
+    },
+    "忆海_境遇搭配评分不为0": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    9,
+                    145,
+                    179,
+                    155
+                ],
+                "expected": [
+                    "\\b0\\b"
+                ]
+            }
+        },
+        "inverse": true,
+        "post_wait_freezes": 200,
+        "focus": "",
+        "next": [
+            "忆海_境遇搭配下一步"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 10335,
+                "y": 2012
+            }
+        }
+    },
+    "忆海_境遇搭配下一步": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    39,
+                    1160,
+                    208,
+                    86
+                ],
+                "expected": [
+                    "下一步"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "next": [
+            "忆海_回到忆海"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 10630,
+                "y": 2009
+            }
+        }
+    },
+    "忆海_回到忆海": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    141,
+                    50,
+                    142,
+                    41
+                ],
+                "expected": [
+                    "本周主题"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "repeat": 5,
+        "repeat_delay": 300,
+        "post_wait_freezes": 500,
+        "$__mpe_code": {
+            "position": {
+                "x": 10960,
+                "y": 1975
+            }
+        }
+    },
+    "忆海_点击境遇2": {
+        "max_hit": 1,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    333,
+                    849,
+                    136,
+                    119
+                ],
+                "expected": [
+                    "境遇"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 500,
+        "focus": "",
+        "next": [
+            "忆海_境遇评分为0",
+            "忆海_境遇结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 8561,
+                "y": 1960
+            }
+        }
+    },
+    "忆海_境遇结束": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {
+                "roi": [
+                    125,
+                    50,
+                    162,
+                    38
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 8933,
+                "y": 2160
+            }
         }
     },
     "$__mpe_external_公共：返回主菜单_忆海心阶": {
@@ -24,7 +381,7 @@
             },
             "extra_positions": [
                 {
-                    "x": 8665,
+                    "x": 9233,
                     "y": 1317
                 }
             ]
@@ -640,8 +997,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 8216,
-                "y": 1275
+                "x": 8589,
+                "y": 1289
             }
         }
     },
